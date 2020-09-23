@@ -1,4 +1,4 @@
-package com.java_1_start.lesson_2_3.app;
+package com.java_1_start.lesson_2_3_4.app;
 
 public class WolfTest {
 	

@@ -1,4 +1,4 @@
-package com.java_1_start.lesson_2_3.app;
+package com.java_1_start.lesson_2_3_4.app;
 
 public class Wolf {
 	
@@ -9,7 +9,7 @@ public class Wolf {
 	private int age;
 
 	public void setSex(String sex) {
-		if (sex != "Кобель" && sex != "Сука") {
+		if (!sex.equals("Кобель") && !sex.equals("Сука")) {
 			System.out.println("Не получилось установить пол '" + sex + "'! Пол может быть 'Кобель' или 'Сука'.");
 			return;
 		}
@@ -22,7 +22,7 @@ public class Wolf {
 	}
 
 	public void setNickname(String nickname) {
-		if (nickname == "") {
+		if (nickname.isEmpty()) {
 			System.out.println("Не получилось установить пустую кличку!");
 			return;
 		}
@@ -35,7 +35,7 @@ public class Wolf {
 	}
 
 	public void setColor(String color) {
-		if (color != "Белый" && color != "Серый") {
+		if (!color.equals("Белый") && !color.equals("Серый")) {
 			System.out.println("Не получилось установить окрас '" + color + "'! Окрас может быть 'Белый' или 'Серый'.");
 			return;
 		}

@@ -1,4 +1,4 @@
-package com.java_1_start.lesson_2_3.robot;
+package com.java_1_start.lesson_2_3_4.robot;
 
 public class Jaeger {
 	
@@ -33,7 +33,7 @@ public class Jaeger {
 	}
 
 	public void setModelName(String modelName) {
-		if (modelName == "") {
+		if (modelName.isEmpty()) {
 			System.out.println("Не могу установить новое значение modelName! Передана пустая строка!");
 			return;	
 		}
