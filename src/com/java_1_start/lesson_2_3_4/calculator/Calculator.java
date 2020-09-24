@@ -2,25 +2,17 @@ package com.java_1_start.lesson_2_3_4.calculator;
 
 public class Calculator {
 	
-	private String stringMath;
+	private String mathExpression;
+	private int firstNumber;
+	private int secondNumber;
+	private char mathOperation;
 
-	public void setStringMath(String stringMath) {
-		this.stringMath = stringMath;
+	public void setStringMath(String mathExpression) {
+		this.mathExpression = mathExpression;
 	}
 
 	public void calculate() {
-		String[] arrayMath = stringMath.split(" ");
-		if (arrayMath.length != 3) {
-			System.out.println("Вы ввели что-то не то!");
-			return;
-		}
-		int firstNumber = Integer.parseInt(arrayMath[0]);
-		int secondNumber = Integer.parseInt(arrayMath[2]);
-		char mathOperation = arrayMath[1].charAt(0);
-		performMathOperation(firstNumber, secondNumber, mathOperation);
-	}
-
-	private void performMathOperation(int firstNumber, int secondNumber, char mathOperation) {
+		prepareMathOperation();
 		switch (mathOperation) {
 			case '+' :
 				System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.addExact(firstNumber, secondNumber));
@@ -51,5 +43,16 @@ public class Calculator {
 			default :
 				System.out.println("Вы ввели недопустимую операцию '" + mathOperation + "'!");
 		}
+	}
+
+	private void prepareMathOperation() {
+		String[] arrayMath = mathExpression.split(" ");
+		if (arrayMath.length != 3) {
+			System.out.println("Вы ввели что-то не то!");
+			return;
+		}
+		firstNumber = Integer.parseInt(arrayMath[0]);
+		secondNumber = Integer.parseInt(arrayMath[2]);
+		mathOperation = arrayMath[1].charAt(0);
 	}
 }

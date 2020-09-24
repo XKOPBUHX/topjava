@@ -16,19 +16,15 @@ public class Player {
 		return name;
 	}
 
+	public int[] getNumbers() {
+		return numbers;
+	}
+
 	public void setNumber(int number, int numberMove) {
 		if (number < 0 || number > 100) {
 			System.out.println("Необходимо вводить число от 0 до 100!");
 		}
 		numbers[numberMove - 1] = number;
-	}
-
-	public void numbersToString(int numberMove) {
-		if (numbers[numberMove - 1] == 0) {
-			numberMove--;
-		}
-		int[] numbersCopy = Arrays.copyOf(numbers, numberMove);
-		System.out.println("Числа игрока " + name + ": " + Arrays.toString(numbersCopy));
 	}
 
 	public void clearNumbers(int numberMove) {

@@ -11,19 +11,19 @@ public class CalculatorTest {
 		do {
 			Calculator calculator = new Calculator();
 			System.out.print("\nВведите математическое выражение: ");
-			String stringMath = scanner.nextLine();
-			calculator.setStringMath(stringMath);
+			String srcExpression = scanner.nextLine();
+			calculator.setStringMath(srcExpression);
 			calculator.calculate();
-		} while (!isEndRun());
+		} while (isNext());
 	}
 
-	private static boolean isEndRun() {
+	private static boolean isNext() {
 		System.out.println();
 		String response;
 		do {
 			System.out.print("Хотите продолжить?[да/нет]: ");
 			response = scanner.nextLine();
 		} while (!response.equals("да") && !response.equals("нет"));
-		return response.equals("нет");
+		return response.equals("да");
 	}
 }

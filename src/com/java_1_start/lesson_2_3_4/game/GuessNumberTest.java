@@ -8,27 +8,26 @@ public class GuessNumberTest {
 
 	public static void main(String[] args) {
 		scanner = new Scanner(System.in);
-		Player player1 = setNewPlayer(true);
-		Player player2 = setNewPlayer(false);
+		Player player1 = createPlayer(1);
+		Player player2 = createPlayer(2);
 		do {
 			GuessNumber game = new GuessNumber(player1, player2);
 			game.run();
-		} while (!isEndGame());
+		} while (isNext());
 	}
 
-	private static Player setNewPlayer(boolean isFirstPlayer) {
-		System.out.print("Введите имя " + (isFirstPlayer ? "первого" : "второго") + " игрока: ");
-		String namePlayer = scanner.nextLine();
-		return new Player(namePlayer);
+	private static Player createPlayer(int numberPlayer) {
+		System.out.print("Введите имя " + numberPlayer + " игрока: ");
+		return new Player(scanner.nextLine());
 	}
 
-	private static boolean isEndGame() {
+	private static boolean isNext() {
 		System.out.println();
 		String response;
 		do {
 			System.out.print("Хотите продолжить?[да/нет]: ");
 			response = scanner.nextLine();
 		} while (!response.equals("да") && !response.equals("нет"));
-		return response.equals("нет");
+		return response.equals("да");
 	}
 }
