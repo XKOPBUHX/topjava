@@ -2,8 +2,7 @@
 \connect jaegers;
 
 -- добавление строк в таблицу
-INSERT INTO robots (
-    modelName, mark, height, weight, status, origin, launch, kaijuKill)
+INSERT INTO robots (modelName, mark, height, weight, status, origin, launch, kaijuKill)
 VALUES
     ('Brawler Yukon',  'Mark-1', '72.25', '1.81',  'Destroyed', 'USA',       '2015-01-30', '2' ),
     ('Gipsy Danger',   'Mark-3', '79.25', '1.98',  'Destroyed', 'USA',       '2017-07-10', '9' ),

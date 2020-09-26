@@ -17,7 +17,7 @@ public class Player {
 	}
 
 	public int[] getNumbers() {
-		return numbers;
+		return Arrays.copyOf(numbers, numbers.length);
 	}
 
 	public void setNumber(int number, int numberMove) {
@@ -29,5 +29,9 @@ public class Player {
 
 	public void clearNumbers(int numberMove) {
 		Arrays.fill(numbers, 0, numberMove, 0);
+	}
+
+	public int getNumberByIndex(int index) {
+		return numbers[index];
 	}
 }

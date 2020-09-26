@@ -11,48 +11,30 @@ public class Calculator {
 		this.mathExpression = mathExpression;
 	}
 
-	public void calculate() {
+	public int calculate() {
 		prepareMathOperation();
 		switch (mathOperation) {
 			case '+' :
-				System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.addExact(firstNumber, secondNumber));
-				break;
+				return Math.addExact(firstNumber, secondNumber);
 			case '-' :
-				System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.subtractExact(firstNumber, secondNumber));
-				break;
+				return Math.subtractExact(firstNumber, secondNumber);
 			case '*' :
-				System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.multiplyExact(firstNumber, secondNumber));
-				break;
+				return Math.multiplyExact(firstNumber, secondNumber);
 			case '/' :
-				if (secondNumber == 0) {
-					System.out.println("На 0 делить нельзя!");
-				} else {
-					System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.floorDiv(firstNumber, secondNumber));
-				}
-				break;
+				return Math.floorDiv(firstNumber, secondNumber);
 			case '%' :
-				System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.floorMod(firstNumber, secondNumber));
-				break;
+				return Math.floorMod(firstNumber, secondNumber);
 			case '^' :
-				if (secondNumber < 0) {
-					System.out.println("Возводить в отрицательную степень нельзя!");
-				} else {
-					System.out.println(firstNumber + " " + mathOperation + " " + secondNumber + " = " + Math.pow(firstNumber, secondNumber));
-				}
-				break;
+				return (int) Math.pow(firstNumber, secondNumber);
 			default :
-				System.out.println("Вы ввели недопустимую операцию '" + mathOperation + "'!");
+				return 0;
 		}
 	}
 
 	private void prepareMathOperation() {
-		String[] arrayMath = mathExpression.split(" ");
-		if (arrayMath.length != 3) {
-			System.out.println("Вы ввели что-то не то!");
-			return;
-		}
-		firstNumber = Integer.parseInt(arrayMath[0]);
-		secondNumber = Integer.parseInt(arrayMath[2]);
-		mathOperation = arrayMath[1].charAt(0);
+		String[] splitMathExpression = mathExpression.split(" ");
+		firstNumber = Integer.parseInt(splitMathExpression[0]);
+		secondNumber = Integer.parseInt(splitMathExpression[2]);
+		mathOperation = splitMathExpression[1].charAt(0);
 	}
 }

@@ -14,4 +14,5 @@ CREATE TABLE robots (
 	status TEXT,
 	origin TEXT,
 	launch DATE,
-	kaijuKill INTEGER);
+	kaijuKill INTEGER
+);

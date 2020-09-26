@@ -22,23 +22,27 @@ public class GuessNumber {
 
 	public void run() {
 		System.out.println("\nУ каждого есть 10 попыток! Поехали!");
-		while (numberMove <= 10) {
-			if (makeMove(player1)) {
-				break;
-			}
-			if (makeMove(player2)) {
-				break;
-			}
+		while (makeMove()) {
 			numberMove++;
 		}
-		System.out.println();
-		showPlayerNumbers(player1);
-		showPlayerNumbers(player2);
+		showPlayersNumbers();
+		clearPlayersNumbers();
 	}
 
-	private boolean makeMove(Player player) {
+	private boolean makeMove() {
+		if (numberMove > 10 || !makeMovePlayer(player1)) {
+			return false;
+		}
+		return makeMovePlayer(player2);
+	}
+
+	private boolean makeMovePlayer(Player player) {
 		inputNumber(player);
-		return checkNumber(player);
+		boolean numberGuessed = checkNumber(player);
+		if (numberMove == 10) {
+			System.out.println("У игрока " + player.getName() + " закончились попытки!");
+		}
+		return !numberGuessed;
 	}
 
 	private void inputNumber(Player player) {
@@ -53,25 +57,32 @@ public class GuessNumber {
 			return true;
 		}
 		System.out.println("Ваше число " + numberPlayer + ((hiddenNumber > numberPlayer) ? " меньше " : " больше ") + "загаданного!");
-		if (numberMove == 10) {
-			System.out.println("У игрока " + player.getName() + " закончились попытки!");
-		}
 		return false;
+	}
+
+	private void showPlayersNumbers() {
+		System.out.println();
+		showPlayerNumbers(player1);
+		showPlayerNumbers(player2);
 	}
 
 	private void showPlayerNumbers(Player player) {
 		checkNumberMove(player);
 		int[] numbersCopy = Arrays.copyOf(player.getNumbers(), numberMove);
 		System.out.println("Числа игрока " + player.getName() + ": " + Arrays.toString(numbersCopy));
-		player.clearNumbers(numberMove);
 	}
 
 	private void checkNumberMove(Player player) {
 		if (numberMove > 10) {
 			numberMove = 10;
 		}
-		if (player.getNumbers()[numberMove - 1] == 0) {
+		if (player.getNumberByIndex(numberMove - 1) == 0) {
 			numberMove--;
 		}
+	}
+
+	private void clearPlayersNumbers() {
+		player1.clearNumbers(numberMove);
+		player2.clearNumbers(numberMove);
 	}
 }
