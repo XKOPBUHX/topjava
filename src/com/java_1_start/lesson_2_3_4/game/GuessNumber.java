@@ -1,10 +1,9 @@
 package com.java_1_start.lesson_2_3_4.game;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
-	
+
 	private final int hiddenNumber;
 	private final Player player1;
 	private final Player player2;
@@ -30,7 +29,11 @@ public class GuessNumber {
 	}
 
 	private boolean makeMove() {
-		if (numberMove > 10 || !makeMovePlayer(player1)) {
+		if (numberMove > 10) {
+			numberMove = 10;
+			return false;
+		}
+		if (!makeMovePlayer(player1)) {
 			return false;
 		}
 		return makeMovePlayer(player2);
@@ -62,23 +65,17 @@ public class GuessNumber {
 
 	private void showPlayersNumbers() {
 		System.out.println();
-		showPlayerNumbers(player1);
-		showPlayerNumbers(player2);
+		showNumbers(player1);
+		showNumbers(player2);
 	}
 
-	private void showPlayerNumbers(Player player) {
-		checkNumberMove(player);
-		int[] numbersCopy = Arrays.copyOf(player.getNumbers(), numberMove);
-		System.out.println("Числа игрока " + player.getName() + ": " + Arrays.toString(numbersCopy));
-	}
-
-	private void checkNumberMove(Player player) {
-		if (numberMove > 10) {
-			numberMove = 10;
+	private void showNumbers(Player player) {
+		int[] numbersPlayer = player.getNumbers();
+		System.out.print("Числа игрока " + player.getName() + ": ");
+		for (int i = 0; i < numbersPlayer.length; i++) {
+			System.out.print(numbersPlayer[i] + " ");
 		}
-		if (player.getNumberByIndex(numberMove - 1) == 0) {
-			numberMove--;
-		}
+		System.out.println();
 	}
 
 	private void clearPlayersNumbers() {

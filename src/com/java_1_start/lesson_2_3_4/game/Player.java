@@ -3,7 +3,7 @@ package com.java_1_start.lesson_2_3_4.game;
 import java.util.Arrays;
 
 public class Player {
-	
+
 	private final String name;
 	private final int[] numbers;
 
@@ -17,6 +17,11 @@ public class Player {
 	}
 
 	public int[] getNumbers() {
+		for (int i = 0; i < numbers.length; i++) {
+			if (numbers[i] == 0) {
+				return Arrays.copyOf(numbers, i);
+			}
+		}
 		return Arrays.copyOf(numbers, numbers.length);
 	}
 
@@ -29,9 +34,5 @@ public class Player {
 
 	public void clearNumbers(int numberMove) {
 		Arrays.fill(numbers, 0, numberMove, 0);
-	}
-
-	public int getNumberByIndex(int index) {
-		return numbers[index];
 	}
 }
