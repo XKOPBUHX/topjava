@@ -31,7 +31,7 @@ public class GuessNumber {
 		}
 		inputNumber(player);
 		boolean numberGuessed = checkNumber(player);
-		if (player.getMovesNumber() == 10) {
+		if (player.getMovesNumber() == 10 && !numberGuessed) {
 			System.out.println("У игрока " + player.getName() + " закончились попытки!");
 		}
 		return !numberGuessed;
