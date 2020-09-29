@@ -20,7 +20,7 @@ public class GuessNumber {
 
 	public void run() {
 		System.out.println("\nУ каждого есть 10 попыток! Поехали!");
-		do { } while (makeMove(player1) && makeMove(player2));
+		while (makeMove(player1) && makeMove(player2)) { }
 		showPlayersNumbers();
 		clearPlayersNumbers();
 	}
