@@ -6,10 +6,29 @@ public class Player {
 
 	private final String name;
 	private final int[] numbers;
+	private int movesNumber;
+	private int currentNumber;
 
 	public Player(String name) {
 		this.name = name;
 		numbers = new int[10];
+	}
+
+	public int getCurrentNumber() {
+		return currentNumber;
+	}
+
+	public void setCurrentNumber(int currentNumber) {
+		if (currentNumber < 0 || currentNumber > 100) {
+			System.out.println("Необходимо вводить число от 0 до 100!");
+		}
+		this.currentNumber = currentNumber;
+		numbers[movesNumber] = currentNumber;
+		movesNumber++;
+	}
+
+	public int getMovesNumber() {
+		return movesNumber;
 	}
 
 	public String getName() {
@@ -17,22 +36,14 @@ public class Player {
 	}
 
 	public int[] getNumbers() {
-		for (int i = 0; i < numbers.length; i++) {
-			if (numbers[i] == 0) {
-				return Arrays.copyOf(numbers, i);
-			}
-		}
-		return Arrays.copyOf(numbers, numbers.length);
+		return Arrays.copyOf(numbers, movesNumber);
 	}
 
-	public void setNumber(int number, int numberMove) {
-		if (number < 0 || number > 100) {
-			System.out.println("Необходимо вводить число от 0 до 100!");
-		}
-		numbers[numberMove - 1] = number;
+	public void initPlayer() {
+		movesNumber = 0;
 	}
 
-	public void clearNumbers(int numberMove) {
-		Arrays.fill(numbers, 0, numberMove, 0);
+	public void clearNumbers() {
+		Arrays.fill(numbers, 0, movesNumber, 0);
 	}
 }

@@ -8,58 +8,46 @@ public class GuessNumber {
 	private final Player player1;
 	private final Player player2;
 	private final Scanner scanner;
-	private int numberPlayer;
-	private int numberMove;
 
 	public GuessNumber(Player player1, Player player2) {
 		this.player1 = player1;
+		this.player1.initPlayer();
 		this.player2 = player2;
+		this.player2.initPlayer();
 		scanner = new Scanner(System.in);
 		hiddenNumber = (int) (Math.random() * 101);
-		numberMove = 1;
 	}
 
 	public void run() {
 		System.out.println("\nУ каждого есть 10 попыток! Поехали!");
-		while (makeMove()) {
-			numberMove++;
-		}
+		do { } while (makeMove(player1) && makeMove(player2));
 		showPlayersNumbers();
 		clearPlayersNumbers();
 	}
 
-	private boolean makeMove() {
-		if (numberMove > 10) {
-			numberMove = 10;
+	private boolean makeMove(Player player) {
+		if (player.getMovesNumber() == 10) {
 			return false;
 		}
-		if (!makeMovePlayer(player1)) {
-			return false;
-		}
-		return makeMovePlayer(player2);
-	}
-
-	private boolean makeMovePlayer(Player player) {
 		inputNumber(player);
 		boolean numberGuessed = checkNumber(player);
-		if (numberMove == 10) {
+		if (player.getMovesNumber() == 10) {
 			System.out.println("У игрока " + player.getName() + " закончились попытки!");
 		}
 		return !numberGuessed;
 	}
 
 	private void inputNumber(Player player) {
-		System.out.print("\nХод " + numberMove + ". " + player.getName() + ", ваше число: ");
-		numberPlayer = scanner.nextInt();
-		player.setNumber(numberPlayer, numberMove);
+		System.out.print("\nХод " + (player.getMovesNumber() + 1) + ". " + player.getName() + ", ваше число: ");
+		player.setCurrentNumber(scanner.nextInt());
 	}
 
 	private boolean checkNumber(Player player) {
-		if (hiddenNumber == numberPlayer) {
-			System.out.println("\nИгрок " + player.getName() + " угадал число " + hiddenNumber + " с " + numberMove + " попытки!");
+		if (hiddenNumber == player.getCurrentNumber()) {
+			System.out.println("\nИгрок " + player.getName() + " угадал число " + hiddenNumber + " с " + player.getMovesNumber() + " попытки!");
 			return true;
 		}
-		System.out.println("Ваше число " + numberPlayer + ((hiddenNumber > numberPlayer) ? " меньше " : " больше ") + "загаданного!");
+		System.out.println("Ваше число " + player.getCurrentNumber() + ((hiddenNumber > player.getCurrentNumber()) ? " меньше " : " больше ") + "загаданного!");
 		return false;
 	}
 
@@ -79,7 +67,7 @@ public class GuessNumber {
 	}
 
 	private void clearPlayersNumbers() {
-		player1.clearNumbers(numberMove);
-		player2.clearNumbers(numberMove);
+		player1.clearNumbers();
+		player2.clearNumbers();
 	}
 }
