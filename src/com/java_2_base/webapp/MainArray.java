@@ -1,4 +1,7 @@
-package com.java_2_base;
+package com.java_2_base.webapp;
+
+import com.java_2_base.webapp.storage.ArrayStorage;
+import com.java_2_base.webapp.model.Resume;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,7 +37,7 @@ public class MainArray {
                     break;
                 case "save":
                     r = new Resume();
-                    r.uuid = uuid;
+                    r.setUuid(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
