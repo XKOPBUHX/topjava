@@ -7,28 +7,10 @@ public class Player {
 	private final String name;
 	private final int[] numbers;
 	private int movesNumber;
-	private int currentNumber;
 
 	public Player(String name) {
 		this.name = name;
 		numbers = new int[10];
-	}
-
-	public int getCurrentNumber() {
-		return currentNumber;
-	}
-
-	public void setCurrentNumber(int currentNumber) {
-		if (currentNumber < 0 || currentNumber > 100) {
-			System.out.println("Необходимо вводить число от 0 до 100!");
-		}
-		this.currentNumber = currentNumber;
-		numbers[movesNumber] = currentNumber;
-		movesNumber++;
-	}
-
-	public int getMovesNumber() {
-		return movesNumber;
 	}
 
 	public String getName() {
@@ -39,7 +21,23 @@ public class Player {
 		return Arrays.copyOf(numbers, movesNumber);
 	}
 
-	public void initPlayer() {
+	public int getMovesNumber() {
+		return movesNumber;
+	}
+
+	public int getCurrentNumber() {
+		return numbers[movesNumber - 1];
+	}
+
+	public void setCurrentNumber(int currentNumber) {
+		if (currentNumber < 0 || currentNumber > 100) {
+			System.out.println("Необходимо вводить число от 0 до 100!");
+		}
+		numbers[movesNumber] = currentNumber;
+		movesNumber++;
+	}
+
+	public void clearMovesNumber() {
 		movesNumber = 0;
 	}
 

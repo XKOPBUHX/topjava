@@ -11,9 +11,9 @@ public class GuessNumber {
 
 	public GuessNumber(Player player1, Player player2) {
 		this.player1 = player1;
-		this.player1.initPlayer();
+		this.player1.clearMovesNumber();
 		this.player2 = player2;
-		this.player2.initPlayer();
+		this.player2.clearMovesNumber();
 		scanner = new Scanner(System.in);
 		hiddenNumber = (int) (Math.random() * 101);
 	}
@@ -27,14 +27,11 @@ public class GuessNumber {
 
 	private boolean makeMove(Player player) {
 		if (player.getMovesNumber() == 10) {
+			System.out.println("У игрока " + player.getName() + " закончились попытки!");
 			return false;
 		}
 		inputNumber(player);
-		boolean numberGuessed = checkNumber(player);
-		if (player.getMovesNumber() == 10 && !numberGuessed) {
-			System.out.println("У игрока " + player.getName() + " закончились попытки!");
-		}
-		return !numberGuessed;
+		return !checkNumber(player);
 	}
 
 	private void inputNumber(Player player) {
@@ -58,10 +55,10 @@ public class GuessNumber {
 	}
 
 	private void showNumbers(Player player) {
-		int[] numbersPlayer = player.getNumbers();
+		int[] numbers = player.getNumbers();
 		System.out.print("Числа игрока " + player.getName() + ": ");
-		for (int i = 0; i < numbersPlayer.length; i++) {
-			System.out.print(numbersPlayer[i] + " ");
+		for (int number : numbers) {
+			System.out.print(number + " ");
 		}
 		System.out.println();
 	}
