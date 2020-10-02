@@ -1,5 +1,7 @@
 package com.java_2_base.webapp.storage;
 
+import com.java_2_base.webapp.model.Resume;
+
 /**
  * Array based storage for Resumes
  */
@@ -16,8 +18,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected int getIndexToSaveElement(int currentIndex) {
-        return size;
+    protected void addElement(int currentIndex, Resume resume) {
+        storage[size] = resume;
     }
 
     @Override

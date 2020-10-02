@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Save error! Resume with uuid '" + resume.getUuid() + "' already exists!");
             return;
         }
-        storage[getIndexToSaveElement(index)] = resume;
+        addElement(index, resume);
         size++;
     }
 
@@ -74,7 +74,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract int getIndex(String uuid);
 
-    protected abstract int getIndexToSaveElement(int currentIndex);
+    protected abstract void addElement(int currentIndex, Resume resume);
 
     protected abstract void removeElement(int index);
 }

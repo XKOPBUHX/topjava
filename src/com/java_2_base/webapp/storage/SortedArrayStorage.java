@@ -12,11 +12,11 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected int getIndexToSaveElement(int currentIndex) {
+    protected void addElement(int currentIndex, Resume resume) {
         int newIndex = Math.abs(currentIndex + 1);
         // Shifting array to one location right
         System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);
-        return newIndex;
+        storage[newIndex] = resume;
     }
 
     @Override
