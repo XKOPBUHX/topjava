@@ -31,6 +31,9 @@ public class MainTestArrayStorage {
         System.out.println();
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
+        System.out.println();
+        System.out.println("Get uuid5: " + ARRAY_STORAGE.get("uuid5"));
+
         System.out.println("\nDelete r3");
         ARRAY_STORAGE.delete(r3.getUuid());
         printAll();
@@ -39,12 +42,20 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
 
+        System.out.println("\nDelete uuid5");
+        ARRAY_STORAGE.delete("uuid5");
+        printAll();
+
         System.out.println("\nUpdate r1");
         ARRAY_STORAGE.update(r1);
         printAll();
 
         System.out.println("\nUpdate r2");
         ARRAY_STORAGE.update(r2);
+        printAll();
+
+        System.out.println("\nUpdate r4");
+        ARRAY_STORAGE.update(new Resume("uuid4"));
         printAll();
 
         System.out.println("\nClear");
