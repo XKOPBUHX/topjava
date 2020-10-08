@@ -3,8 +3,6 @@ package com.java_1_start.lesson_1.app;
 public class Main {
 	
 	public static void main(String[] args) {
-		// TODO: просуммировать числа в диапазоне от 1 до 5
-
 		/*
 		1 + 2 + 3 + 4 + 5 = 15
 
