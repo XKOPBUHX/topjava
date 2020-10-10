@@ -16,6 +16,10 @@ abstract class AbstractArrayStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
+    private static final Resume RESUME_1 = new Resume(UUID_1);
+    private static final Resume RESUME_2 = new Resume(UUID_2);
+    private static final Resume RESUME_3 = new Resume(UUID_3);
+    private static final Resume RESUME_4 = new Resume(UUID_4);
     private static final int STORAGE_LIMIT = 10_000;
 
     public AbstractArrayStorageTest(Storage storage) {
@@ -25,24 +29,25 @@ abstract class AbstractArrayStorageTest {
     @BeforeEach
     void setUp() {
         storage.clear();
-        storage.save(new Resume(UUID_1));
-        storage.save(new Resume(UUID_2));
-        storage.save(new Resume(UUID_3));
+        storage.save(RESUME_1);
+        storage.save(RESUME_2);
+        storage.save(RESUME_3);
     }
 
     @Test
     void save() {
-        storage.save(new Resume(UUID_4));
+        storage.save(RESUME_4);
         try {
             storage.get(UUID_4);
-        } catch (Exception e) {
+        } catch (StorageException e) {
             Assertions.fail("Resume with uuid '" + UUID_4 + "' not saved!");
         }
+        assertEquals(4, storage.size());
     }
 
     @Test
     void saveExist() {
-        assertThrows(ExistStorageException.class, () -> storage.save(new Resume(UUID_3)));
+        assertThrows(ExistStorageException.class, () -> storage.save(RESUME_3));
     }
 
     @Test
@@ -51,7 +56,7 @@ abstract class AbstractArrayStorageTest {
             while (storage.size() < STORAGE_LIMIT) {
                 storage.save(new Resume());
             }
-        } catch (Exception e) {
+        } catch (StorageException e) {
             Assertions.fail("Attention! Storage problems found!");
         }
         assertThrows(StorageException.class, () -> storage.save(new Resume()));
@@ -59,19 +64,27 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     void update() {
-        storage.update(new Resume(UUID_1));
-        assertEquals(storage.getAll()[0].getUuid(), UUID_1);
+        storage.update(RESUME_1);
+        assertEquals(storage.get(UUID_1), RESUME_1);
     }
 
     @Test
     void updateNotExist() {
-        assertThrows(NotExistStorageException.class, () -> storage.update(new Resume(UUID_4)));
+        assertThrows(NotExistStorageException.class, () -> storage.update(RESUME_4));
     }
 
     @Test
     void delete() {
         storage.delete(UUID_1);
         assertThrows(NotExistStorageException.class, () -> storage.get(UUID_1));
+        assertEquals(2, storage.size());
+    }
+
+    @Test
+    void deleteEmpty() {
+        storage.clear();
+        assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_1));
+        assertEquals(0, storage.size());
     }
 
     @Test
@@ -91,21 +104,8 @@ abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void sizeSave() {
-        storage.save(new Resume(UUID_4));
-        assertEquals(4, storage.size());
-    }
-
-    @Test
-    void sizeDelete() {
-        storage.delete(UUID_1);
-        assertEquals(2, storage.size());
-    }
-
-    @Test
     void get() {
-        Resume resume = storage.get(UUID_1);
-        assertEquals(resume.getUuid(), UUID_1);
+        assertEquals(storage.get(UUID_1), RESUME_1);
     }
 
     @Test
@@ -115,31 +115,19 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     void getAll() {
-        Resume[] currentStorage = storage.getAll();
-        Resume[] testStorage = new Resume[3];
-        if (currentStorage.length != testStorage.length) {
+        Resume[] actualResumes = storage.getAll();
+        Resume[] expectedResumes = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        if (actualResumes.length != expectedResumes.length) {
             Assertions.fail("Attention! Storage problems found!");
         }
-        testStorage[0] = new Resume(UUID_1);
-        testStorage[1] = new Resume(UUID_2);
-        testStorage[2] = new Resume(UUID_3);
-        for (int i = 0; i < currentStorage.length; i++) {
-            if (!currentStorage[i].equals(testStorage[i])) {
+        for (int i = 0; i < actualResumes.length; i++) {
+            if (!actualResumes[i].equals(expectedResumes[i])) {
                 Assertions.fail("Attention! Storage problems found!");
             }
         }
     }
 
     private boolean isEmpty() {
-        boolean isEmpty = true;
-        if (storage != null && storage.size() != 0) {
-            for (Resume resume : storage.getAll()) {
-                if (resume != null) {
-                    isEmpty = false;
-                    break;
-                }
-            }
-        }
-        return isEmpty;
+        return storage == null || storage.size() == 0 || storage.getAll().length == 0;
     }
 }
