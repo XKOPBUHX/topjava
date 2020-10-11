@@ -109,13 +109,6 @@ abstract class AbstractArrayStorageTest {
     void getAll() {
         Resume[] actualResumes = storage.getAll();
         Resume[] expectedResumes = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        if (actualResumes.length != expectedResumes.length) {
-            Assertions.fail("Attention! Storage problems found!");
-        }
-        for (int i = 0; i < actualResumes.length; i++) {
-            if (!actualResumes[i].equals(expectedResumes[i])) {
-                Assertions.fail("Attention! Storage problems found!");
-            }
-        }
+        assertArrayEquals(expectedResumes, actualResumes);
     }
 }
