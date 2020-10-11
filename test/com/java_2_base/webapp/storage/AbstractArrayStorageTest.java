@@ -37,17 +37,14 @@ abstract class AbstractArrayStorageTest {
     @Test
     void save() {
         storage.save(RESUME_4);
-        try {
-            storage.get(UUID_4);
-        } catch (StorageException e) {
-            Assertions.fail("Resume with uuid '" + UUID_4 + "' not saved!");
-        }
+        assertEquals(RESUME_4, storage.get(UUID_4));
         assertEquals(4, storage.size());
     }
 
     @Test
     void saveExist() {
         assertThrows(ExistStorageException.class, () -> storage.save(RESUME_3));
+        assertEquals(3, storage.size());
     }
 
     @Test
@@ -60,12 +57,13 @@ abstract class AbstractArrayStorageTest {
             Assertions.fail("Attention! Storage problems found!");
         }
         assertThrows(StorageException.class, () -> storage.save(new Resume()));
+        assertEquals(STORAGE_LIMIT, storage.size());
     }
 
     @Test
     void update() {
         storage.update(RESUME_1);
-        assertEquals(storage.get(UUID_1), RESUME_1);
+        assertEquals(RESUME_1, storage.get(UUID_1));
     }
 
     @Test
@@ -81,21 +79,15 @@ abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void deleteEmpty() {
-        storage.clear();
-        assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_1));
-        assertEquals(0, storage.size());
+    void deleteNotExist() {
+        assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_4));
+        assertEquals(3, storage.size());
     }
 
     @Test
     void clear() {
         storage.clear();
-        assertTrue(isEmpty());
-    }
-
-    @Test
-    void clearNot() {
-        assertFalse(isEmpty());
+        assertEquals(0, storage.size());
     }
 
     @Test
@@ -105,7 +97,7 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     void get() {
-        assertEquals(storage.get(UUID_1), RESUME_1);
+        assertEquals(RESUME_1, storage.get(UUID_1));
     }
 
     @Test
@@ -125,9 +117,5 @@ abstract class AbstractArrayStorageTest {
                 Assertions.fail("Attention! Storage problems found!");
             }
         }
-    }
-
-    private boolean isEmpty() {
-        return storage == null || storage.size() == 0 || storage.getAll().length == 0;
     }
 }
