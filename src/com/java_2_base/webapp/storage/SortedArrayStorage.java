@@ -12,7 +12,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void addElement(int currentIndex, Resume resume) {
+    protected void doAdd(int currentIndex, Resume resume) {
         int newIndex = Math.abs(currentIndex + 1);
         // Shifting array to one location right
         System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);
@@ -20,7 +20,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void removeElement(int index) {
+    protected void doRemove(int index) {
         // Shifting array to one location left
         System.arraycopy(storage, index + 1, storage, index, size - index - 1);
     }

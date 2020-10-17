@@ -1,14 +1,17 @@
 package com.java_2_base.webapp;
 
 import com.java_2_base.webapp.model.Resume;
-import com.java_2_base.webapp.storage.SortedArrayStorage;
+import com.java_2_base.webapp.storage.ArrayStorage;
 import com.java_2_base.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    //private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    //private static final Storage ARRAY_STORAGE = new ListStorage();
+    //private static final Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");
@@ -22,17 +25,17 @@ public class MainTestArrayStorage {
         printAll();
 
         System.out.println("\nSave r1 (again)");
-        ARRAY_STORAGE.save(r1);
+        //ARRAY_STORAGE.save(r1);
         printAll();
 
         System.out.println("\nGet r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         System.out.println();
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        //System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         System.out.println();
-        System.out.println("Get uuid5: " + ARRAY_STORAGE.get("uuid5"));
+        //System.out.println("Get uuid5: " + ARRAY_STORAGE.get("uuid5"));
 
         System.out.println("\nDelete r3");
         ARRAY_STORAGE.delete(r3.getUuid());
@@ -43,11 +46,11 @@ public class MainTestArrayStorage {
         printAll();
 
         System.out.println("\nDelete uuid5");
-        ARRAY_STORAGE.delete("uuid5");
+        //ARRAY_STORAGE.delete("uuid5");
         printAll();
 
         System.out.println("\nUpdate r1");
-        ARRAY_STORAGE.update(r1);
+        //ARRAY_STORAGE.update(r1);
         printAll();
 
         System.out.println("\nUpdate r2");
@@ -55,7 +58,7 @@ public class MainTestArrayStorage {
         printAll();
 
         System.out.println("\nUpdate r4");
-        ARRAY_STORAGE.update(new Resume("uuid4"));
+        //ARRAY_STORAGE.update(new Resume("uuid4"));
         printAll();
 
         System.out.println("\nClear");

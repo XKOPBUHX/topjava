@@ -14,7 +14,7 @@ public class Variable {
 
 		// Other
 		int windowsVersion = 10;
-		long monitorDiagonal = 27l;
+		long monitorDiagonal = 27L;
 		boolean isSsd = true;
 
 		// Output
