@@ -29,40 +29,40 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
 
     @Override
-    protected boolean doExist(String uuid) {
-        return getIndex(uuid) >= 0;
+    protected boolean isExist(Object searchKey) {
+        return (Integer) searchKey >= 0;
     }
 
     @Override
-    protected void doSave(Resume resume) {
+    protected void doSave(Resume resume, Object searchKey) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        doAdd(getIndex(resume.getUuid()), resume);
+        doAdd(resume, (Integer) searchKey);
         size++;
     }
 
     @Override
-    protected void doUpdate(Resume resume) {
-        storage[getIndex(resume.getUuid())] = resume;
+    protected void doUpdate(Resume resume, Object searchKey) {
+        storage[(Integer) searchKey] = resume;
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        doRemove(getIndex(uuid));
+    protected void doDelete(Object searchKey) {
+        doRemove((Integer) searchKey);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected Resume doGet(String uuid) {
-        return storage[getIndex(uuid)];
+    protected Resume doGet(Object searchKey) {
+        return storage[(Integer) searchKey];
     }
 
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 
-    protected abstract void doAdd(int currentIndex, Resume resume);
+    protected abstract void doAdd(Resume resume, int currentIndex);
 
     protected abstract void doRemove(int index);
 }

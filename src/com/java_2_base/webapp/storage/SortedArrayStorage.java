@@ -7,12 +7,12 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Object getSearchKey(String uuid) {
         return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
     }
 
     @Override
-    protected void doAdd(int currentIndex, Resume resume) {
+    protected void doAdd(Resume resume, int currentIndex) {
         int newIndex = Math.abs(currentIndex + 1);
         // Shifting array to one location right
         System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);

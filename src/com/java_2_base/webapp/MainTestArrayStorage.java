@@ -9,9 +9,9 @@ import com.java_2_base.webapp.storage.Storage;
  */
 public class MainTestArrayStorage {
     private static final Storage ARRAY_STORAGE = new ArrayStorage();
-    //private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
-    //private static final Storage ARRAY_STORAGE = new ListStorage();
-    //private static final Storage ARRAY_STORAGE = new MapStorage();
+    //        SortedArrayStorage();
+    //        ListStorage();
+    //        MapStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");

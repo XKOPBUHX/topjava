@@ -2,13 +2,10 @@ package com.java_2_base.webapp.storage;
 
 import com.java_2_base.webapp.model.Resume;
 
-/**
- * Array based storage for Resumes
- */
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Object getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
@@ -18,7 +15,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void doAdd(int currentIndex, Resume resume) {
+    protected void doAdd(Resume resume, int currentIndex) {
         storage[size] = resume;
     }
 

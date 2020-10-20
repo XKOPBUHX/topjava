@@ -43,7 +43,6 @@ abstract class AbstractArrayStorageTest {
     @Test
     void saveExist() {
         assertThrows(ExistStorageException.class, () -> storage.save(RESUME_3));
-        assertSize(3);
     }
 
     @Test
@@ -56,7 +55,6 @@ abstract class AbstractArrayStorageTest {
             Assertions.fail("Attention! Storage problems found!");
         }
         assertThrows(StorageException.class, () -> storage.save(new Resume()));
-        assertSize(AbstractArrayStorage.STORAGE_LIMIT);
     }
 
     @Test
@@ -80,7 +78,6 @@ abstract class AbstractArrayStorageTest {
     @Test
     void deleteNotExist() {
         assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_4));
-        assertSize(3);
     }
 
     @Test
