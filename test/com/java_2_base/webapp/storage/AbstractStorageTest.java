@@ -6,22 +6,23 @@ import com.java_2_base.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractStorageTest {
-    protected final Storage storage;
+    final Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_1 = new Resume(UUID_1, "Ivan");
+    private static final Resume RESUME_2 = new Resume(UUID_2, "Petr");
+    private static final Resume RESUME_3 = new Resume(UUID_3, "Anna");
+    private static final Resume RESUME_4 = new Resume(UUID_4, "Max");
 
-    protected AbstractStorageTest(Storage storage) {
+    AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -92,11 +93,13 @@ abstract class AbstractStorageTest {
     }
 
     @Test
-    void getAll() {
-        Resume[] actualResumes = storage.getAll();
-        Arrays.sort(actualResumes);
-        Resume[] expectedResumes = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        assertArrayEquals(expectedResumes, actualResumes);
+    void getAllSorted() {
+        List<Resume> actualResumes = storage.getAllSorted();
+        List<Resume> expectedResumes = new ArrayList<>();
+        expectedResumes.add(RESUME_3);
+        expectedResumes.add(RESUME_1);
+        expectedResumes.add(RESUME_2);
+        assertEquals(expectedResumes, actualResumes);
     }
 
     private void assertSize(int size) {
