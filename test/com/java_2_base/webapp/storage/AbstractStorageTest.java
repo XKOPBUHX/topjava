@@ -6,10 +6,11 @@ import com.java_2_base.webapp.model.Resume;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract class AbstractStorageTest {
     final Storage storage;
@@ -95,10 +96,7 @@ abstract class AbstractStorageTest {
     @Test
     void getAllSorted() {
         List<Resume> actualResumes = storage.getAllSorted();
-        List<Resume> expectedResumes = new ArrayList<>();
-        expectedResumes.add(RESUME_3);
-        expectedResumes.add(RESUME_1);
-        expectedResumes.add(RESUME_2);
+        List<Resume> expectedResumes = Arrays.asList(RESUME_3, RESUME_1, RESUME_2);
         assertEquals(expectedResumes, actualResumes);
     }
 

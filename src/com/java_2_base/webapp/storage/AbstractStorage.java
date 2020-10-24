@@ -4,7 +4,6 @@ import com.java_2_base.webapp.exception.ExistStorageException;
 import com.java_2_base.webapp.exception.NotExistStorageException;
 import com.java_2_base.webapp.model.Resume;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,8 +35,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        Resume[] resumes = getAll();
-        List<Resume> list = Arrays.asList(resumes);
+        List<Resume> list = getAll();
         Collections.sort(list);
         return list;
     }
@@ -55,7 +53,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getSearchKey(String uuid);
 
-    protected abstract Resume[] getAll();
+    protected abstract List<Resume> getAll();
 
 
     private Object getExistingKey(String uuid) {
