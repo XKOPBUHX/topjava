@@ -35,7 +35,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> list = getAll();
+        List<Resume> list = doGetAll();
         Collections.sort(list);
         return list;
     }
@@ -51,9 +51,9 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Resume doGet(Object searchKey);
 
-    protected abstract Object getSearchKey(String uuid);
+    protected abstract List<Resume> doGetAll();
 
-    protected abstract List<Resume> getAll();
+    protected abstract Object getSearchKey(String uuid);
 
 
     private Object getExistingKey(String uuid) {

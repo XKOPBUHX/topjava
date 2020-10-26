@@ -23,7 +23,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-
     @Override
     protected boolean isExist(Object searchKey) {
         return (Integer) searchKey >= 0;
@@ -56,7 +55,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> getAll() {
+    protected List<Resume> doGetAll() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
 

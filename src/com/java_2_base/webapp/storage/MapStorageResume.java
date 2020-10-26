@@ -20,7 +20,6 @@ public class MapStorageResume extends AbstractStorage {
         return storage.size();
     }
 
-
     @Override
     protected boolean isExist(Object searchKey) {
         return searchKey != null;
@@ -46,12 +45,13 @@ public class MapStorageResume extends AbstractStorage {
         return (Resume) searchKey;
     }
 
-    protected Object getSearchKey(String uuid) {
-        return storage.get(uuid);
+    @Override
+    protected List<Resume> doGetAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
-    protected List<Resume> getAll() {
-        return new ArrayList<>(storage.values());
+    protected Object getSearchKey(String uuid) {
+        return storage.get(uuid);
     }
 }

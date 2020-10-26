@@ -20,7 +20,6 @@ public class MapStorageUuid extends AbstractStorage {
         return storage.size();
     }
 
-
     @Override
     protected boolean isExist(Object searchKey) {
         return storage.containsKey(String.valueOf(searchKey));
@@ -46,12 +45,13 @@ public class MapStorageUuid extends AbstractStorage {
         return storage.get(String.valueOf(searchKey));
     }
 
-    protected Object getSearchKey(String uuid) {
-        return uuid;
+    @Override
+    protected List<Resume> doGetAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
-    protected List<Resume> getAll() {
-        return new ArrayList<>(storage.values());
+    protected Object getSearchKey(String uuid) {
+        return uuid;
     }
 }
