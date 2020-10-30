@@ -1,8 +1,8 @@
 package com.java_2_base.webapp.model;
 
-public class SectionString extends AbstractSection {
+public class SimpleTextSection extends AbstractSection {
 
-    public SectionString(String section) {
+    public SimpleTextSection(String section) {
         this.section = section;
     }
 

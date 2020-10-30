@@ -3,16 +3,16 @@ package com.java_2_base.webapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionListObject extends AbstractSection {
+public class OrganizationSection extends AbstractSection {
 
-    public SectionListObject() {
-        this.section = new ArrayList<ObjectList>();
+    public OrganizationSection() {
+        this.section = new ArrayList<Experience>();
     }
 
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
-        for (ObjectList element : (List<ObjectList>) section) {
+        for (Experience element : (List<Experience>) section) {
             text.append("- ").append(element).append("\n");
         }
         return text.toString().trim();

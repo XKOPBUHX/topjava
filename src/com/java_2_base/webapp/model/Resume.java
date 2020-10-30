@@ -64,7 +64,7 @@ public class Resume implements Comparable<Resume> {
 
     public void addSectionString(SectionType type, String text) {
         if (type == SectionType.PERSONAL || type == SectionType.OBJECTIVE) {
-            sections.put(type, new SectionString(text));
+            sections.put(type, new SimpleTextSection(text));
         }
     }
 
@@ -72,7 +72,7 @@ public class Resume implements Comparable<Resume> {
         if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
             AbstractSection value = sections.get(type);
             if (value == null) {
-                value = new SectionListString();
+                value = new BulletedListSection();
             }
             ((List<String>) value.section).add(text);
             sections.put(type, value);
@@ -83,10 +83,10 @@ public class Resume implements Comparable<Resume> {
         if (type == SectionType.EXPERIENCE || type == SectionType.EDUCATION) {
             AbstractSection value = sections.get(type);
             if (value == null) {
-                value = new SectionListObject();
+                value = new OrganizationSection();
             }
-            ObjectList objectList = new ObjectList(startDate, endDate, title, description);
-            ((List<ObjectList>) value.section).add(objectList);
+            Experience experience = new Experience(startDate, endDate, title, description);
+            ((List<Experience>) value.section).add(experience);
             sections.put(type, value);
         }
     }

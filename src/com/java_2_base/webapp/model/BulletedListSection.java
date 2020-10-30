@@ -3,9 +3,9 @@ package com.java_2_base.webapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SectionListString extends AbstractSection {
+public class BulletedListSection extends AbstractSection {
 
-    public SectionListString() {
+    public BulletedListSection() {
         this.section = new ArrayList<String>();
     }
 
