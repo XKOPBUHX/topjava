@@ -73,9 +73,9 @@ public class Resume implements Comparable<Resume> {
             AbstractSection value = sections.get(type);
             if (value == null) {
                 value = new BulletedListSection();
+                sections.put(type, value);
             }
             ((List<String>) value.section).add(text);
-            sections.put(type, value);
         }
     }
 
@@ -84,10 +84,10 @@ public class Resume implements Comparable<Resume> {
             AbstractSection value = sections.get(type);
             if (value == null) {
                 value = new OrganizationSection();
+                sections.put(type, value);
             }
             Experience experience = new Experience(startDate, endDate, title, description);
             ((List<Experience>) value.section).add(experience);
-            sections.put(type, value);
         }
     }
 
