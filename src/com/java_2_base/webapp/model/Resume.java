@@ -68,7 +68,7 @@ public class Resume implements Comparable<Resume> {
         }
     }
 
-    public void addSectionListString(SectionType type, String text) {
+    public void addBulletedListSection(SectionType type, String text) {
         if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
             AbstractSection value = sections.get(type);
             if (value == null) {
@@ -79,7 +79,7 @@ public class Resume implements Comparable<Resume> {
         }
     }
 
-    public void addSectionListObject(SectionType type, LocalDate startDate, LocalDate endDate, String title, String description) {
+    public void addOrganizationSection(SectionType type, LocalDate startDate, LocalDate endDate, String title, String description) {
         if (type == SectionType.EXPERIENCE || type == SectionType.EDUCATION) {
             AbstractSection value = sections.get(type);
             if (value == null) {
