@@ -1,18 +1,19 @@
 package com.java_2_base.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrganizationSection extends AbstractSection {
 
-    public OrganizationSection() {
-        this.section = new ArrayList<Experience>();
+    private final List<Experience> data;
+
+    public OrganizationSection(List<Experience> data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
-        for (Experience element : (List<Experience>) section) {
+        for (Experience element : data) {
             text.append("- ").append(element).append("\n");
         }
         return text.toString().trim();

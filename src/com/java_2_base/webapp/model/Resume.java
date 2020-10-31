@@ -1,13 +1,12 @@
 package com.java_2_base.webapp.model;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class Resume implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
-    private Map<ContactType, String> contacts;
-    private Map<SectionType, AbstractSection> sections;
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -18,8 +17,6 @@ public class Resume implements Comparable<Resume> {
         Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-        this.contacts = new EnumMap<>(ContactType.class);
-        this.sections = new EnumMap<>(SectionType.class);
     }
 
     public String getUuid() {
@@ -58,37 +55,13 @@ public class Resume implements Comparable<Resume> {
         return Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid).compare(this, o);
     }
 
+
     public void addContact(ContactType type, String contact) {
         contacts.put(type, contact);
     }
 
-    public void addSectionString(SectionType type, String text) {
-        if (type == SectionType.PERSONAL || type == SectionType.OBJECTIVE) {
-            sections.put(type, new SimpleTextSection(text));
-        }
-    }
-
-    public void addBulletedListSection(SectionType type, String text) {
-        if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
-            AbstractSection value = sections.get(type);
-            if (value == null) {
-                value = new BulletedListSection();
-                sections.put(type, value);
-            }
-            ((List<String>) value.section).add(text);
-        }
-    }
-
-    public void addOrganizationSection(SectionType type, LocalDate startDate, LocalDate endDate, String title, String description) {
-        if (type == SectionType.EXPERIENCE || type == SectionType.EDUCATION) {
-            AbstractSection value = sections.get(type);
-            if (value == null) {
-                value = new OrganizationSection();
-                sections.put(type, value);
-            }
-            Experience experience = new Experience(startDate, endDate, title, description);
-            ((List<Experience>) value.section).add(experience);
-        }
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
     }
 
     public void show() {

@@ -1,18 +1,19 @@
 package com.java_2_base.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BulletedListSection extends AbstractSection {
 
-    public BulletedListSection() {
-        this.section = new ArrayList<String>();
+    private final List<String> data;
+
+    public BulletedListSection(List<String> data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
-        for (String element : (List<String>) section) {
+        for (String element : data) {
             text.append("- ").append(element).append("\n");
         }
         return text.toString().trim();
