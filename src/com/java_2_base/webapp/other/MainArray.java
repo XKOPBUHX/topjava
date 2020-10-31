@@ -1,4 +1,4 @@
-package com.java_2_base.webapp;
+package com.java_2_base.webapp.other;
 
 import com.java_2_base.webapp.storage.ArrayStorage;
 import com.java_2_base.webapp.model.Resume;

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.java_2_base.webapp.ResumeTestData.fillResume;
+import static com.java_2_base.webapp.model.ResumeTestData.fillResume;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -23,7 +23,7 @@ abstract class AbstractStorageTest {
     private static final Resume RESUME_2 = new Resume(UUID_2, "Petr");
     private static final Resume RESUME_3 = new Resume(UUID_3, "Anna");
     private static final Resume RESUME_4 = new Resume(UUID_4, "Max");
-    
+
     AbstractStorageTest(Storage storage) {
         this.storage = storage;
         fillResume(RESUME_1);
