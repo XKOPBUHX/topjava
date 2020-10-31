@@ -32,7 +32,7 @@ public class ResumeTestData {
                 "Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).",
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."
         );
-        BulletedListSection sectionAchievements = new BulletedListSection(achievements);
+        ListSection<String> sectionAchievements = new ListSection<>(achievements);
         resume.addSection(SectionType.ACHIEVEMENT, sectionAchievements);
 
         List<String> qualifications = Arrays.asList(
@@ -52,7 +52,7 @@ public class ResumeTestData {
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования",
                 "Родной русский, английский \"upper intermediate\""
         );
-        BulletedListSection sectionQualifications = new BulletedListSection(qualifications);
+        ListSection<String> sectionQualifications = new ListSection<>(qualifications);
         resume.addSection(SectionType.QUALIFICATIONS, sectionQualifications);
 
         List<Experience> experience = Arrays.asList(
@@ -105,7 +105,7 @@ public class ResumeTestData {
                         "Автор проекта.: Создание, организация и проведение Java онлайн проектов и стажировок."
                 )
         );
-        OrganizationSection sectionExperience = new OrganizationSection(experience);
+        ListSection<Experience> sectionExperience = new ListSection<>(experience);
         resume.addSection(SectionType.EXPERIENCE, sectionExperience);
 
         List<Experience> education = Arrays.asList(
@@ -152,7 +152,7 @@ public class ResumeTestData {
                         "\"Functional Programming Principles in Scala\" by Martin Odersky"
                 )
         );
-        OrganizationSection sectionEducation = new OrganizationSection(education);
+        ListSection<Experience> sectionEducation = new ListSection<>(education);
         resume.addSection(SectionType.EDUCATION, sectionEducation);
 
         resume.show();
