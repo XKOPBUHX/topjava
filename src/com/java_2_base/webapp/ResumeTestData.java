@@ -9,20 +9,24 @@ import java.util.List;
 public class ResumeTestData {
     public static void main(String[] args) {
         Resume resume = new Resume("Григорий Кислин");
+        ResumeTestData.fillResume(resume);
+        resume.show();
+    }
 
-        resume.addContact(ContactType.PHONE, "+7(921) 855-0482");
-        resume.addContact(ContactType.SKYPE, "grigory.kislin");
-        resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
-        resume.addContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin/");
-        resume.addContact(ContactType.GITHUB, "https://github.com/gkislin");
-        resume.addContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
-        resume.addContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
+    public static void fillResume(Resume resume) {
+        resume.setContact(ContactType.PHONE, "+7(921) 855-0482");
+        resume.setContact(ContactType.SKYPE, "grigory.kislin");
+        resume.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
+        resume.setContact(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin/");
+        resume.setContact(ContactType.GITHUB, "https://github.com/gkislin");
+        resume.setContact(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473/grigory-kislin");
+        resume.setContact(ContactType.HOMEPAGE, "http://gkislin.ru/");
 
         SimpleTextSection sectionPersonal = new SimpleTextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
-        resume.addSection(SectionType.PERSONAL, sectionPersonal);
+        resume.setSection(SectionType.PERSONAL, sectionPersonal);
 
         SimpleTextSection sectionObjective = new SimpleTextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
-        resume.addSection(SectionType.OBJECTIVE, sectionObjective);
+        resume.setSection(SectionType.OBJECTIVE, sectionObjective);
 
         List<String> achievements = Arrays.asList(
                 "С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.",
@@ -33,7 +37,7 @@ public class ResumeTestData {
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."
         );
         ListSection<String> sectionAchievements = new ListSection<>(achievements);
-        resume.addSection(SectionType.ACHIEVEMENT, sectionAchievements);
+        resume.setSection(SectionType.ACHIEVEMENT, sectionAchievements);
 
         List<String> qualifications = Arrays.asList(
                 "JEE AS: GlassFish (v2.1, v3), OC4J, JBoss, Tomcat, Jetty, WebLogic, WSO2",
@@ -53,7 +57,7 @@ public class ResumeTestData {
                 "Родной русский, английский \"upper intermediate\""
         );
         ListSection<String> sectionQualifications = new ListSection<>(qualifications);
-        resume.addSection(SectionType.QUALIFICATIONS, sectionQualifications);
+        resume.setSection(SectionType.QUALIFICATIONS, sectionQualifications);
 
         List<Experience> experience = Arrays.asList(
                 new Experience(
@@ -106,7 +110,7 @@ public class ResumeTestData {
                 )
         );
         ListSection<Experience> sectionExperience = new ListSection<>(experience);
-        resume.addSection(SectionType.EXPERIENCE, sectionExperience);
+        resume.setSection(SectionType.EXPERIENCE, sectionExperience);
 
         List<Experience> education = Arrays.asList(
                 new Experience(
@@ -153,8 +157,6 @@ public class ResumeTestData {
                 )
         );
         ListSection<Experience> sectionEducation = new ListSection<>(education);
-        resume.addSection(SectionType.EDUCATION, sectionEducation);
-
-        resume.show();
+        resume.setSection(SectionType.EDUCATION, sectionEducation);
     }
 }
