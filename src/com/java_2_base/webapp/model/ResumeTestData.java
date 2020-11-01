@@ -8,7 +8,7 @@ public class ResumeTestData {
     public static void main(String[] args) {
         Resume resume = new Resume("Григорий Кислин");
         ResumeTestData.fillResume(resume);
-        resume.show();
+        System.out.println(resume.toString());
     }
 
     public static void fillResume(Resume resume) {

@@ -27,9 +27,34 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    public void setContact(ContactType type, String contact) {
+        contacts.put(type, contact);
+    }
+
+    public void setSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
+
     @Override
     public String toString() {
-        return fullName + "(" + uuid + ")";
+        StringBuilder sb = new StringBuilder();
+        sb.append(fullName).append("\n");
+        for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+            sb.append("\n")
+                    .append(entry.getKey().getTitle())
+                    .append(" : ")
+                    .append(entry.getValue());
+        }
+        sb.append("\n");
+        for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+            sb.append("\n")
+                    .append(entry.getKey().getTitle())
+                    .append(":")
+                    .append("\n")
+                    .append(entry.getValue().toString())
+                    .append("\n");
+        }
+        return sb.toString().trim();
     }
 
     @Override
@@ -40,38 +65,22 @@ public class Resume implements Comparable<Resume> {
         Resume resume = (Resume) o;
 
         if (!uuid.equals(resume.uuid)) return false;
-        return fullName.equals(resume.fullName);
+        if (!fullName.equals(resume.fullName)) return false;
+        if (!contacts.equals(resume.contacts)) return false;
+        return sections.equals(resume.sections);
     }
 
     @Override
     public int hashCode() {
         int result = uuid.hashCode();
         result = 31 * result + fullName.hashCode();
+        result = 31 * result + contacts.hashCode();
+        result = 31 * result + sections.hashCode();
         return result;
     }
 
     @Override
     public int compareTo(Resume o) {
         return Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid).compare(this, o);
-    }
-
-
-    public void setContact(ContactType type, String contact) {
-        contacts.put(type, contact);
-    }
-
-    public void setSection(SectionType type, AbstractSection section) {
-        sections.put(type, section);
-    }
-
-    public void show() {
-        System.out.println(fullName);
-        for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
-            System.out.println(entry.getKey().getTitle() + " : " + entry.getValue());
-        }
-        for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
-            System.out.println("\n" + entry.getKey().getTitle() + ":");
-            System.out.println(entry.getValue().toString());
-        }
     }
 }
