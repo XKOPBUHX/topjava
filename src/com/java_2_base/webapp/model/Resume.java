@@ -27,8 +27,16 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
     public void setContact(ContactType type, String contact) {
         contacts.put(type, contact);
+    }
+
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
     }
 
     public void setSection(SectionType type, AbstractSection section) {

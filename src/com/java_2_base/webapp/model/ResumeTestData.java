@@ -57,104 +57,134 @@ public class ResumeTestData {
         ListSection<String> sectionQualifications = new ListSection<>(qualifications);
         resume.setSection(SectionType.QUALIFICATIONS, sectionQualifications);
 
-        List<Experience> experience = Arrays.asList(
-                new Experience(
+        List<Organization> organization = Arrays.asList(
+                new Organization(
+                        "Alcatel",
+                        "http://www.alcatel.ru/",
                         LocalDate.of(1997, 9, 1),
                         LocalDate.of(2005, 1, 1),
-                        "Alcatel",
-                        "Инженер по аппаратному и программному тестированию: Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."
+                        "Инженер по аппаратному и программному тестированию",
+                        "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12 (CHILL, ASM)."
                 ),
-                new Experience(
+                new Organization(
+                        "Siemens AG",
+                        "https://new.siemens.com/ru/ru.html",
                         LocalDate.of(2005, 1, 1),
                         LocalDate.of(2007, 2, 1),
-                        "Siemens AG",
-                        "Разработчик ПО: Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix)."
+                        "Разработчик ПО",
+                        "Разработка информационной модели, проектирование интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix)."
                 ),
-                new Experience(
+                new Organization(
+                        "Enkata",
+                        "https://www.pega.com/products/robotic-process-automation",
                         LocalDate.of(2007, 3, 1),
                         LocalDate.of(2008, 6, 1),
-                        "Enkata",
-                        "Разработчик ПО: Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining)."
+                        "Разработчик ПО",
+                        "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining)."
                 ),
-                new Experience(
+                new Organization(
+                        "Yota",
+                        "https://www.yota.ru/",
                         LocalDate.of(2008, 6, 1),
                         LocalDate.of(2010, 12, 1),
-                        "Yota",
-                        "Ведущий специалист: Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"
+                        "Ведущий специалист",
+                        "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS)"
                 ),
-                new Experience(
+                new Organization(
+                        "Luxoft (Deutsche Bank)",
+                        "https://www.luxoft.com/",
                         LocalDate.of(2010, 12, 1),
                         LocalDate.of(2012, 4, 1),
-                        "Luxoft (Deutsche Bank)",
-                        "Ведущий программист: Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."
+                        "Ведущий программист",
+                        "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация RIA-приложения для администрирования, мониторинга и анализа результатов в области алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock, Commet, HTML5."
                 ),
-                new Experience(
+                new Organization(
+                        "RIT Center",
+                        "",
                         LocalDate.of(2012, 4, 1),
                         LocalDate.of(2014, 10, 1),
-                        "RIT Center",
-                        "Java архитектор: Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python"
+                        "Java архитектор",
+                        "Организация процесса разработки системы ERP для разных окружений: релизная политика, версионирование, ведение CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), AAA via SSO. Архитектура БД и серверной части системы. Разработка интергационных сервисов: CMIS, BPMN2, 1C (WebServices), сервисов общего назначения (почта, экспорт в pdf, doc, html). Интеграция Alfresco JLAN для online редактирование из браузера документов MS Office. Maven + plugin development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis, Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python"
                 ),
-                new Experience(
+                new Organization(
+                        "Wrike",
+                        "https://www.wrike.com/",
                         LocalDate.of(2014, 10, 1),
                         LocalDate.of(2016, 1, 1),
-                        "Wrike",
-                        "Старший разработчик (backend): Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."
+                        "Старший разработчик (backend)",
+                        "Проектирование и разработка онлайн платформы управления проектами Wrike (Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная аутентификация, авторизация по OAuth1, OAuth2, JWT SSO."
                 ),
-                new Experience(
+                new Organization(
+                        "Java Online Projects",
+                        "https://javaops.ru/",
                         LocalDate.of(2013, 10, 1),
                         LocalDate.now(),
-                        "Java Online Projects",
-                        "Автор проекта.: Создание, организация и проведение Java онлайн проектов и стажировок."
+                        "Автор проекта",
+                        "Создание, организация и проведение Java онлайн проектов и стажировок."
                 )
         );
-        ListSection<Experience> sectionExperience = new ListSection<>(experience);
+        ListSection<Organization> sectionExperience = new ListSection<>(organization);
         resume.setSection(SectionType.EXPERIENCE, sectionExperience);
 
-        List<Experience> education = Arrays.asList(
-                new Experience(
+        List<Organization> education = Arrays.asList(
+                new Organization(
+                        "Заочная физико-техническая школа при МФТИ",
+                        "http://www.school.mipt.ru/",
                         LocalDate.of(1984, 9, 1),
                         LocalDate.of(1987, 6, 1),
-                        "Заочная физико-техническая школа при МФТИ",
-                        "Закончил с отличием"
+                        "Закончил с отличием",
+                        ""
                 ),
-                new Experience(
+                new Organization(
+                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
+                        "https://itmo.ru/ru/",
                         LocalDate.of(1987, 9, 1),
                         LocalDate.of(1993, 7, 1),
-                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                        "Инженер (программист Fortran, C)"
+                        "Инженер (программист Fortran, C)",
+                        ""
                 ),
-                new Experience(
+                new Organization(
+                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
+                        "https://itmo.ru/ru/",
                         LocalDate.of(1993, 9, 1),
                         LocalDate.of(1996, 7, 1),
-                        "Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики",
-                        "Аспирантура (программист С, С++)"
+                        "Аспирантура (программист С, С++)",
+                        ""
                 ),
-                new Experience(
+                new Organization(
+                        "Alcatel",
+                        "http://www.alcatel.ru/",
                         LocalDate.of(1997, 9, 1),
                         LocalDate.of(1998, 3, 1),
-                        "Alcatel",
-                        "6 месяцев обучения цифровым телефонным сетям (Москва)"
+                        "6 месяцев обучения цифровым телефонным сетям (Москва)",
+                        ""
                 ),
-                new Experience(
+                new Organization(
+                        "Siemens AG",
+                        "https://new.siemens.com/ru/ru.html",
                         LocalDate.of(2005, 1, 1),
                         LocalDate.of(2005, 4, 1),
-                        "Siemens AG",
-                        "3 месяца обучения мобильным IN сетям (Берлин)"
+                        "3 месяца обучения мобильным IN сетям (Берлин)",
+                        ""
                 ),
-                new Experience(
+                new Organization(
+                        "Luxoft",
+                        "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html",
                         LocalDate.of(2011, 3, 1),
                         LocalDate.of(2011, 4, 1),
-                        "Luxoft",
-                        "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""
+                        "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\"",
+                        ""
                 ),
-                new Experience(
+                new Organization(
+                        "Coursera",
+                        "https://www.coursera.org/learn/progfun1",
                         LocalDate.of(2013, 3, 1),
                         LocalDate.of(2013, 5, 1),
-                        "Coursera",
-                        "\"Functional Programming Principles in Scala\" by Martin Odersky"
+                        "\"Functional Programming Principles in Scala\" by Martin Odersky",
+                        ""
                 )
         );
-        ListSection<Experience> sectionEducation = new ListSection<>(education);
+        ListSection<Organization> sectionEducation = new ListSection<>(education);
         resume.setSection(SectionType.EDUCATION, sectionEducation);
     }
 }
