@@ -1,62 +1,49 @@
 package com.java_2_base.webapp.model;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Objects;
 
 public class Organization {
     private final Link homePage;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final String title;
-    private final String description;
+    private final List<Experience> experience;
 
-    public Organization(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
-        Objects.requireNonNull(startDate, "start date must not be null");
-        Objects.requireNonNull(endDate, "end date must not be null");
-        Objects.requireNonNull(title, "title must not be null");
+    public Organization(String name, String url, List<Experience> experience) {
+        Objects.requireNonNull(experience, "experience must not be null");
         this.homePage = new Link(name, url);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.title = title;
-        this.description = description;
+        this.experience = experience;
     }
 
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
-        return formatter.format(startDate)
-                + " - "
-                + formatter.format(endDate)
-                + ". "
-                + homePage.toString()
-                + ". "
-                + title
-                + ". "
-                + description;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(homePage.toString()).append(": \n");
+        for (Experience experienceObj : experience) {
+            stringBuilder.append(formatter.format(experienceObj.getStartDate()))
+                    .append(" - ")
+                    .append(formatter.format(experienceObj.getEndDate()))
+                    .append(". ")
+                    .append(experienceObj.getTitle())
+                    .append(". ")
+                    .append(experienceObj.getDescription())
+                    .append("\n");
+        }
+
+        return stringBuilder.toString().trim();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Organization that = (Organization) o;
-
-        if (!homePage.equals(that.homePage)) return false;
-        if (!startDate.equals(that.startDate)) return false;
-        if (!endDate.equals(that.endDate)) return false;
-        if (!title.equals(that.title)) return false;
-        return Objects.equals(description, that.description);
+        return homePage.equals(that.homePage) &&
+                experience.equals(that.experience);
     }
 
     @Override
     public int hashCode() {
-        int result = homePage.hashCode();
-        result = 31 * result + startDate.hashCode();
-        result = 31 * result + endDate.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
+        return Objects.hash(homePage, experience);
     }
 }
