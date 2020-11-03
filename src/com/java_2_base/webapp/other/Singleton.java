@@ -2,7 +2,7 @@ package com.java_2_base.webapp.other;
 
 public final class Singleton {
     private static Singleton instance;
-    private String value;
+    private final String value;
 
     public static Singleton getInstance(String value) {
         if (instance == null) {
