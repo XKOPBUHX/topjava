@@ -1,5 +1,6 @@
-package com.java_2_base.webapp.model;
+package com.java_2_base.webapp.other;
 
+import com.java_2_base.webapp.model.*;
 import com.java_2_base.webapp.util.DateUtil;
 
 import java.time.LocalDate;

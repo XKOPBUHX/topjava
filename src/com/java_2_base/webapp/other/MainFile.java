@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class MainFile {
     public static void main(String[] args) {
-        String filePath = "E:\\JAVA\\Projects\\TopJava\\.gitignore";
+        String filePath = "./.gitignore";
         File file = new File(filePath);
         try {
             System.out.println(file.getCanonicalPath());
@@ -15,7 +15,7 @@ public class MainFile {
         }
         System.out.println("file exist = " + file.exists());
 
-        File dir = new File("E:\\JAVA\\Projects\\TopJava\\src\\com\\java_2_base\\webapp");
+        File dir = new File("./src/com/java_2_base/webapp");
         System.out.println(dir);
         System.out.println("is directory : " + dir.isDirectory());
         String[] list = dir.list();
@@ -32,24 +32,21 @@ public class MainFile {
         }
 
         System.out.println("===========================");
-        showFileTree(new File(System.getProperty("user.dir")), 0);
+        StringBuilder indentBuilder = new StringBuilder();
+        showFileTree(new File(System.getProperty("user.dir")), indentBuilder);
     }
 
-    private static void showFileTree(File file, int level) {
+    private static void showFileTree(File file, StringBuilder indent) {
         if (!file.exists()) {
             return;
         }
-        StringBuilder indent = new StringBuilder();
-        for (int i = 1; i < level; i++) {
-            indent.append(" ");
-        }
-        System.out.println(indent.toString() + file.getName());
+        System.out.println(indent + file.getName());
         if (file.isDirectory()) {
             File[] files = file.listFiles();
             if (files != null) {
-                level++;
                 for (File nestedFile : files) {
-                    showFileTree(nestedFile, level);
+                    showFileTree(nestedFile, indent.append("-"));
+                    indent.delete(indent.length() - 1, indent.length());
                 }
             }
         }

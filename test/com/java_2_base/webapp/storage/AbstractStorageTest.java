@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.java_2_base.webapp.model.ResumeTestData.createResume;
+import static com.java_2_base.webapp.other.ResumeTestData.createResume;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,8 +50,9 @@ abstract class AbstractStorageTest {
 
     @Test
     void update() {
-        storage.update(RESUME_1);
-        assertGet(RESUME_1, UUID_1);
+        Resume resume = createResume(UUID_1, "Ivan New");
+        storage.update(resume);
+        assertEquals(storage.get(UUID_1), resume);
     }
 
     @Test
