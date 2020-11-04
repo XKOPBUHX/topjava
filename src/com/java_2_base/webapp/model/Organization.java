@@ -125,7 +125,7 @@ public class Organization implements Serializable {
         }
     }
 
-    public static class Link implements Serializable {
+    private static class Link implements Serializable {
         private static final long serialVersionUID = 1L;
         private final String name;
         private final String url;
