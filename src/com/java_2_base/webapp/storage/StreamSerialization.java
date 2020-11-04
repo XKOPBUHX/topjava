@@ -5,14 +5,10 @@ import com.java_2_base.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamPathStorage extends AbstractPathStorage {
-
-    protected ObjectStreamPathStorage(String dir) {
-        super(dir);
-    }
+public class StreamSerialization implements SerializationStrategy {
 
     @Override
-    protected Resume doRead(InputStream stream) throws IOException {
+    public Resume doRead(InputStream stream) throws IOException {
         try (ObjectInputStream inputStream = new ObjectInputStream(stream)) {
             return (Resume) inputStream.readObject();
         } catch (ClassNotFoundException e) {
@@ -21,7 +17,7 @@ public class ObjectStreamPathStorage extends AbstractPathStorage {
     }
 
     @Override
-    protected void doWrite(Resume resume, OutputStream stream) throws IOException {
+    public void doWrite(Resume resume, OutputStream stream) throws IOException {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(stream)) {
             outputStream.writeObject(resume);
         }
