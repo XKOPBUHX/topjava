@@ -2,6 +2,7 @@ package com.java_2_base.webapp.storage;
 
 import com.java_2_base.webapp.exception.StorageException;
 import com.java_2_base.webapp.model.Resume;
+import com.java_2_base.webapp.storage.serialization.SerializationStrategy;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -10,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
     private final Path directory;
@@ -69,11 +71,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        try {
-            return Files.list(directory).map(this::doGet).collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new StorageException("path read error", directory.getFileName().toString(), e);
-        }
+        return getFilesInDirectory().map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
@@ -83,15 +81,19 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        try {
-            Files.list(directory).forEach(this::doDelete);
-        } catch (IOException e) {
-            throw new StorageException("path delete error", null);
-        }
+        getFilesInDirectory().forEach(this::doDelete);
     }
 
     @Override
     public int size() {
-        return doCopyAll().size();
+        return (int) getFilesInDirectory().count();
+    }
+
+    private Stream<Path> getFilesInDirectory() {
+        try {
+            return Files.list(directory);
+        } catch (IOException e) {
+            throw new StorageException("path read error", directory.getFileName().toString(), e);
+        }
     }
 }

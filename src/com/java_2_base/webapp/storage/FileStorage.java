@@ -2,13 +2,14 @@ package com.java_2_base.webapp.storage;
 
 import com.java_2_base.webapp.exception.StorageException;
 import com.java_2_base.webapp.model.Resume;
+import com.java_2_base.webapp.storage.serialization.SerializationStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FileStorage extends AbstractStorage<File>  {
+public class FileStorage extends AbstractStorage<File> {
     private final File directory;
     private final SerializationStrategy serializationStrategy;
 
@@ -69,10 +70,7 @@ public class FileStorage extends AbstractStorage<File>  {
 
     @Override
     protected List<Resume> doCopyAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("directory read error", null);
-        }
+        File[] files = getFilesInDirectory();
         List<Resume> resumes = new ArrayList<>(files.length);
         for (File file : files) {
             resumes.add(doGet(file));
@@ -87,16 +85,22 @@ public class FileStorage extends AbstractStorage<File>  {
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
+        File[] files = getFilesInDirectory();
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
     @Override
     public int size() {
-        return doCopyAll().size();
+        return getFilesInDirectory().length;
+    }
+
+    private File[] getFilesInDirectory() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("directory read error", null);
+        }
+        return files;
     }
 }
