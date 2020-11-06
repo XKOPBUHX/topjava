@@ -12,7 +12,7 @@ public class StreamSerialization implements SerializationStrategy {
         try (ObjectInputStream inputStream = new ObjectInputStream(stream)) {
             return (Resume) inputStream.readObject();
         } catch (ClassNotFoundException e) {
-            throw new StorageException("file read error", null, e);
+            throw new StorageException("file read error", e);
         }
     }
 
