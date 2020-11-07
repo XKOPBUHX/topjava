@@ -1,7 +1,11 @@
 package com.java_2_base.webapp.model;
 
 import com.java_2_base.webapp.util.DateUtil;
+import com.java_2_base.webapp.util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -10,11 +14,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final Link homePage;
-    private final List<Position> positions;
+    private Link homePage;
+    private List<Position> positions;
+
+    public Organization() {
+    }
 
     public Organization(String name, String url, Position... position) {
         this(new Link(name, url), Arrays.asList(position));
@@ -27,13 +35,19 @@ public class Organization implements Serializable {
         this.positions = positions;
     }
 
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
 
         private static final long serialVersionUID = 1L;
-        private final LocalDate startDate;
-        private final LocalDate endDate;
-        private final String title;
-        private final String description;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
+        private LocalDate endDate;
+        private String title;
+        private String description;
+
+        public Position() {
+        }
 
         public Position(int startYear, Month startMoth, String title, String description) {
             this(DateUtil.of(startYear, startMoth), DateUtil.NOW, title, description);
@@ -87,11 +101,15 @@ public class Organization implements Serializable {
         }
     }
 
-    private static class Link implements Serializable {
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Link implements Serializable {
 
         private static final long serialVersionUID = 1L;
-        private final String name;
-        private final String url;
+        private String name;
+        private String url;
+
+        public Link() {
+        }
 
         public Link(String name, String url) {
             Objects.requireNonNull(name, "name must not be null");
