@@ -1,6 +1,7 @@
 package com.java_2_base.webapp.other;
 
 public final class Singleton {
+
     private static Singleton instance;
     private final String value;
 

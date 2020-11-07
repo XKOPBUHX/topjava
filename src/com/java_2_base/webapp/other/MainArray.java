@@ -13,6 +13,7 @@ import java.util.List;
  * (just run, no need to understand)
  */
 public class MainArray {
+
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {

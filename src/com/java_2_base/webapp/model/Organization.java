@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Organization implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private final Link homePage;
     private final List<Position> positions;
@@ -26,31 +27,8 @@ public class Organization implements Serializable {
         this.positions = positions;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(homePage.toString()).append(": \n");
-        for (Position position : positions) {
-            stringBuilder.append(position.toString()).append("\n");
-        }
-        return stringBuilder.toString().trim();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Organization that = (Organization) o;
-        return homePage.equals(that.homePage) &&
-                positions.equals(that.positions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(homePage, positions);
-    }
-
     public static class Position implements Serializable {
+
         private static final long serialVersionUID = 1L;
         private final LocalDate startDate;
         private final LocalDate endDate;
@@ -77,22 +55,6 @@ public class Organization implements Serializable {
             this.endDate = endDate;
             this.title = title;
             this.description = description;
-        }
-
-        public LocalDate getStartDate() {
-            return startDate;
-        }
-
-        public LocalDate getEndDate() {
-            return endDate;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDescription() {
-            return description;
         }
 
         @Override
@@ -126,6 +88,7 @@ public class Organization implements Serializable {
     }
 
     private static class Link implements Serializable {
+
         private static final long serialVersionUID = 1L;
         private final String name;
         private final String url;
@@ -134,14 +97,6 @@ public class Organization implements Serializable {
             Objects.requireNonNull(name, "name must not be null");
             this.name = name;
             this.url = url;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getUrl() {
-            return url;
         }
 
         @Override
@@ -166,5 +121,29 @@ public class Organization implements Serializable {
         public String toString() {
             return name + ((url != null && !url.isEmpty()) ? " (" + url + ")" : "");
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(homePage.toString()).append(": \n");
+        for (Position position : positions) {
+            stringBuilder.append(position.toString()).append("\n");
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Organization that = (Organization) o;
+        return homePage.equals(that.homePage) &&
+                positions.equals(that.positions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(homePage, positions);
     }
 }

@@ -8,6 +8,7 @@ import com.java_2_base.webapp.storage.Storage;
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
+
     private static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {

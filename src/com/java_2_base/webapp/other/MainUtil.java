@@ -1,6 +1,7 @@
 package com.java_2_base.webapp.other;
 
 public class MainUtil {
+
     public static void main(String[] args) {
         // true
         //System.out.println(Integer.valueOf(-1) == Integer.valueOf(-1));

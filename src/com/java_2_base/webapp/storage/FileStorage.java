@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class FileStorage extends AbstractStorage<File> {
+
     private final File directory;
     private final SerializationStrategy serializationStrategy;
 
@@ -24,6 +25,14 @@ public class FileStorage extends AbstractStorage<File> {
         }
         this.directory = directory;
         this.serializationStrategy = serializationStrategy;
+    }
+
+    private File[] getFilesInDirectory() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("directory read error");
+        }
+        return files;
     }
 
     @Override
@@ -94,13 +103,5 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         return getFilesInDirectory().length;
-    }
-
-    private File[] getFilesInDirectory() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("directory read error");
-        }
-        return files;
     }
 }

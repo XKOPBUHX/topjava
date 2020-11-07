@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
+
     private final Path directory;
     private final SerializationStrategy serializationStrategy;
 
@@ -25,6 +26,14 @@ public class PathStorage extends AbstractStorage<Path> {
             throw new IllegalArgumentException(dir + " is not directory");
         }
         this.serializationStrategy = serializationStrategy;
+    }
+
+    private Stream<Path> getFilesInDirectory() {
+        try {
+            return Files.list(directory);
+        } catch (IOException e) {
+            throw new StorageException("path read error", directory.getFileName().toString(), e);
+        }
     }
 
     @Override
@@ -87,13 +96,5 @@ public class PathStorage extends AbstractStorage<Path> {
     @Override
     public int size() {
         return (int) getFilesInDirectory().count();
-    }
-
-    private Stream<Path> getFilesInDirectory() {
-        try {
-            return Files.list(directory);
-        } catch (IOException e) {
-            throw new StorageException("path read error", directory.getFileName().toString(), e);
-        }
     }
 }

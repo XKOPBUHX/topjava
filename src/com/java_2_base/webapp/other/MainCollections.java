@@ -5,6 +5,7 @@ import com.java_2_base.webapp.model.Resume;
 import java.util.*;
 
 public class MainCollections {
+
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";

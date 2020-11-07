@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ResumeTestData {
+
     public static void main(String[] args) {
         Resume resume = ResumeTestData.createResume("test", "Григорий Кислин");
         System.out.println(resume.toString());

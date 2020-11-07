@@ -7,10 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
-    protected static final int STORAGE_LIMIT = 10_000;
 
+    protected static final int STORAGE_LIMIT = 10_000;
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
-    int size = 0;
+    protected int size = 0;
+
+    protected abstract Integer getSearchKey(String uuid);
+
+    protected abstract void doAdd(Resume resume, int currentIndex);
+
+    protected abstract void doRemove(int index);
 
     @Override
     public void clear() {
@@ -58,11 +64,4 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected List<Resume> doCopyAll() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
-
-
-    protected abstract Integer getSearchKey(String uuid);
-
-    protected abstract void doAdd(Resume resume, int currentIndex);
-
-    protected abstract void doRemove(int index);
 }
