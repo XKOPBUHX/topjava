@@ -9,11 +9,51 @@ import java.util.List;
 public class ResumeTestData {
 
     public static void main(String[] args) {
-        Resume resume = ResumeTestData.createResume("test", "Григорий Кислин");
+        Resume resume = ResumeTestData.createResume_4("test", "Григорий Кислин");
         System.out.println(resume.toString());
     }
 
     public static Resume createResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
+
+        resume.setContact(ContactType.PHONE, "телефон");
+
+        SimpleTextSection sectionPersonal = new SimpleTextSection("Личное");
+        resume.setSection(SectionType.PERSONAL, sectionPersonal);
+
+        return resume;
+    }
+
+    public static Resume createResume_2(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
+
+        resume.setContact(ContactType.PHONE, "телефон");
+        resume.setContact(ContactType.SKYPE, "скайп");
+
+        SimpleTextSection sectionPersonal = new SimpleTextSection("Личное");
+        resume.setSection(SectionType.PERSONAL, sectionPersonal);
+
+        SimpleTextSection sectionObjective = new SimpleTextSection("Позиция");
+        resume.setSection(SectionType.OBJECTIVE, sectionObjective);
+
+        List<String> achievements = Arrays.asList(
+                "Достижение 1",
+                "Достижение 2"
+        );
+        ListSection sectionAchievements = new ListSection(achievements);
+        resume.setSection(SectionType.ACHIEVEMENT, sectionAchievements);
+
+        List<String> qualifications = Arrays.asList(
+                "Квалификация 1",
+                "Квалификация 2"
+        );
+        ListSection sectionQualifications = new ListSection(qualifications);
+        resume.setSection(SectionType.QUALIFICATIONS, sectionQualifications);
+
+        return resume;
+    }
+
+    public static Resume createResume_3(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
 
         resume.setContact(ContactType.PHONE, "телефон");
@@ -71,7 +111,7 @@ public class ResumeTestData {
         return resume;
     }
 
-    public static Resume createResumeFull(String uuid, String fullName) {
+    public static Resume createResume_4(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
 
         resume.setContact(ContactType.PHONE, "+7(921) 855-0482");

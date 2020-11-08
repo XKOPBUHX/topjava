@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.java_2_base.webapp.other.ResumeTestData.createResume;
+import static com.java_2_base.webapp.other.ResumeTestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -21,9 +21,9 @@ abstract class AbstractStorageTest {
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
     private static final Resume RESUME_1 = createResume(UUID_1, "Ivan");
-    private static final Resume RESUME_2 = createResume(UUID_2, "Petr");
-    private static final Resume RESUME_3 = createResume(UUID_3, "Anna");
-    private static final Resume RESUME_4 = createResume(UUID_4, "Max");
+    private static final Resume RESUME_2 = createResume_2(UUID_2, "Petr");
+    private static final Resume RESUME_3 = createResume_3(UUID_3, "Anna");
+    private static final Resume RESUME_4 = createResume_4(UUID_4, "Max");
     protected final Storage storage;
 
     AbstractStorageTest(Storage storage) {
