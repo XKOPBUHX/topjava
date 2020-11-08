@@ -16,6 +16,64 @@ public class ResumeTestData {
     public static Resume createResume(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
 
+        resume.setContact(ContactType.PHONE, "телефон");
+        resume.setContact(ContactType.SKYPE, "скайп");
+
+        SimpleTextSection sectionPersonal = new SimpleTextSection("Личное");
+        resume.setSection(SectionType.PERSONAL, sectionPersonal);
+
+        SimpleTextSection sectionObjective = new SimpleTextSection("Позиция");
+        resume.setSection(SectionType.OBJECTIVE, sectionObjective);
+
+        List<String> achievements = Arrays.asList(
+                "Достижение 1",
+                "Достижение 2"
+        );
+        ListSection sectionAchievements = new ListSection(achievements);
+        resume.setSection(SectionType.ACHIEVEMENT, sectionAchievements);
+
+        List<String> qualifications = Arrays.asList(
+                "Квалификация 1",
+                "Квалификация 2"
+        );
+        ListSection sectionQualifications = new ListSection(qualifications);
+        resume.setSection(SectionType.QUALIFICATIONS, sectionQualifications);
+
+        List<Organization> organization = Arrays.asList(
+                new Organization("Компания 1", "сайт 1",
+                        new Organization.Position(1997, Month.SEPTEMBER, 2005, Month.JANUARY,
+                                "Должность 1",
+                                "Описание 1"
+                        )
+                ),
+                new Organization("Компания 2", "сайт 2",
+                        new Organization.Position(2005, Month.JANUARY, 2007, Month.FEBRUARY,
+                                "Должность 2",
+                                "Описание 2"
+                        )
+                )
+        );
+        OrganizationSection sectionExperience = new OrganizationSection(organization);
+        resume.setSection(SectionType.EXPERIENCE, sectionExperience);
+
+        List<Organization> education = Arrays.asList(
+                new Organization("Школа 1", "сайт 1",
+                        new Organization.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE, "Описание 1")
+                ),
+                new Organization("Школа 2", "сайт 2",
+                        new Organization.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Описание 2-1"),
+                        new Organization.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Описание 2-2")
+                )
+        );
+        OrganizationSection sectionEducation = new OrganizationSection(education);
+        resume.setSection(SectionType.EDUCATION, sectionEducation);
+
+        return resume;
+    }
+
+    public static Resume createResumeFull(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
+
         resume.setContact(ContactType.PHONE, "+7(921) 855-0482");
         resume.setContact(ContactType.SKYPE, "grigory.kislin");
         resume.setContact(ContactType.EMAIL, "gkislin@yandex.ru");
@@ -38,7 +96,7 @@ public class ResumeTestData {
                 "Создание JavaEE фреймворка для отказоустойчивого взаимодействия слабо-связанных сервисов (SOA-base архитектура, JAX-WS, JMS, AS Glassfish). Сбор статистики сервисов и информации о состоянии через систему мониторинга Nagios. Реализация онлайн клиента для администрирования и мониторинга системы по JMX (Jython/ Django).",
                 "Реализация протоколов по приему платежей всех основных платежных системы России (Cyberplat, Eport, Chronopay, Сбербанк), Белоруcсии(Erip, Osmp) и Никарагуа."
         );
-        ListSection<String> sectionAchievements = new ListSection<>(achievements);
+        ListSection sectionAchievements = new ListSection(achievements);
         resume.setSection(SectionType.ACHIEVEMENT, sectionAchievements);
 
         List<String> qualifications = Arrays.asList(
@@ -58,7 +116,7 @@ public class ResumeTestData {
                 "Отличное знание и опыт применения концепций ООП, SOA, шаблонов проектрирования, архитектурных шаблонов, UML, функционального программирования",
                 "Родной русский, английский \"upper intermediate\""
         );
-        ListSection<String> sectionQualifications = new ListSection<>(qualifications);
+        ListSection sectionQualifications = new ListSection(qualifications);
         resume.setSection(SectionType.QUALIFICATIONS, sectionQualifications);
 
         List<Organization> organization = Arrays.asList(
@@ -111,7 +169,7 @@ public class ResumeTestData {
                         )
                 )
         );
-        ListSection<Organization> sectionExperience = new ListSection<>(organization);
+        OrganizationSection sectionExperience = new OrganizationSection(organization);
         resume.setSection(SectionType.EXPERIENCE, sectionExperience);
 
         List<Organization> education = Arrays.asList(
@@ -135,7 +193,7 @@ public class ResumeTestData {
                         new Organization.Position(2013, Month.MARCH, 2013, Month.MAY, "\"Functional Programming Principles in Scala\" by Martin Odersky")
                 )
         );
-        ListSection<Organization> sectionEducation = new ListSection<>(education);
+        OrganizationSection sectionEducation = new OrganizationSection(education);
         resume.setSection(SectionType.EDUCATION, sectionEducation);
 
         return resume;

@@ -3,27 +3,27 @@ package com.java_2_base.webapp.model;
 import java.util.List;
 import java.util.Objects;
 
-public class ListSection extends AbstractSection {
+public class OrganizationSection extends AbstractSection {
 
     private static final long serialVersionUID = 1L;
-    private List<String> list;
+    private List<Organization> list;
 
-    public ListSection() {
+    public OrganizationSection() {
     }
 
-    public ListSection(List<String> list) {
-        Objects.requireNonNull(list, "list sections must not be null");
+    public OrganizationSection(List<Organization> list) {
+        Objects.requireNonNull(list, "organization sections must not be null");
         this.list = list;
     }
 
-    public List<String> getList() {
+    public List<Organization> getList() {
         return list;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (String element : list) {
+        for (Organization element : list) {
             sb.append("- ").append(element).append("\n");
         }
         return sb.toString().trim();
@@ -34,7 +34,7 @@ public class ListSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ListSection that = (ListSection) o;
+        OrganizationSection that = (OrganizationSection) o;
 
         return list.equals(that.list);
     }
