@@ -10,6 +10,73 @@ import java.util.Map;
 
 public class DataStreamSerializer implements StreamSerializer {
 
+    @Override
+    public Resume doRead(InputStream stream) throws IOException {
+        try (DataInputStream inputStream = new DataInputStream(stream)) {
+            Resume resume = new Resume(inputStream.readUTF(), inputStream.readUTF());
+            readContacts(inputStream, resume);
+            readSections(inputStream, resume);
+            return resume;
+        }
+    }
+
+    @Override
+    public void doWrite(Resume resume, OutputStream stream) throws IOException {
+        try (DataOutputStream outputStream = new DataOutputStream(stream)) {
+            writeString(outputStream, resume.getUuid());
+            writeString(outputStream, resume.getFullName());
+
+            Map<ContactType, String> contacts = resume.getContacts();
+            writeInteger(outputStream, contacts.size());
+            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+                writeString(outputStream, entry.getKey().name());
+                writeString(outputStream, entry.getValue());
+            }
+
+            Map<SectionType, AbstractSection> sections = resume.getSections();
+            writeInteger(outputStream, sections.size());
+            for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
+                SectionType sectionType = entry.getKey();
+                AbstractSection section = entry.getValue();
+                writeString(outputStream, sectionType.name());
+                switch (sectionType) {
+                    case PERSONAL:
+                    case OBJECTIVE:
+                        writeString(outputStream, ((SimpleTextSection) section).getText());
+                        break;
+                    case ACHIEVEMENT:
+                    case QUALIFICATIONS:
+                        List<String> listString = ((ListSection) section).getList();
+                        writeInteger(outputStream, listString.size());
+                        for (String string : listString) {
+                            writeString(outputStream, string);
+                        }
+                        break;
+                    case EXPERIENCE:
+                    case EDUCATION:
+                        List<Organization> listOrganization = ((OrganizationSection) section).getList();
+                        writeInteger(outputStream, listOrganization.size());
+                        for (Organization organization : listOrganization) {
+                            Organization.Link homePage = organization.getHomePage();
+                            writeString(outputStream, homePage.getName());
+                            writeString(outputStream, homePage.getUrl());
+
+                            List<Organization.Position> positions = organization.getPositions();
+                            writeInteger(outputStream, positions.size());
+                            for (Organization.Position position : positions) {
+                                writeString(outputStream, position.getStartDate().toString());
+                                writeString(outputStream, position.getEndDate().toString());
+                                writeString(outputStream, position.getTitle());
+                                writeString(outputStream, position.getDescription());
+                            }
+                        }
+                        break;
+                }
+            }
+        }
+    }
+
+
     private void readContacts(DataInputStream inputStream, Resume resume) throws IOException {
         int size = inputStream.readInt();
         for (int i = 0; i < size; i++) {
@@ -81,109 +148,12 @@ public class DataStreamSerializer implements StreamSerializer {
         return new Organization.Position(startDate, endDate, title, description);
     }
 
+
     private void writeString(DataOutputStream outputStream, String text) throws IOException {
         outputStream.writeUTF(text);
     }
 
     private void writeInteger(DataOutputStream outputStream, int number) throws IOException {
         outputStream.writeInt(number);
-    }
-
-    private void writeFields(DataOutputStream outputStream, Resume resume) throws IOException {
-        writeString(outputStream, resume.getUuid());
-        writeString(outputStream, resume.getFullName());
-    }
-
-    private void writeContacts(DataOutputStream outputStream, Resume resume) throws IOException {
-        Map<ContactType, String> contacts = resume.getContacts();
-        writeInteger(outputStream, contacts.size());
-        for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
-            writeContact(outputStream, entry);
-        }
-    }
-
-    private void writeContact(DataOutputStream outputStream, Map.Entry<ContactType, String> entry) throws IOException {
-        writeString(outputStream, entry.getKey().name());
-        writeString(outputStream, entry.getValue());
-    }
-
-    private void writeSections(DataOutputStream outputStream, Resume resume) throws IOException {
-        Map<SectionType, AbstractSection> sections = resume.getSections();
-        writeInteger(outputStream, sections.size());
-        for (Map.Entry<SectionType, AbstractSection> entry : sections.entrySet()) {
-            writeSection(outputStream, entry.getKey(), entry.getValue());
-        }
-    }
-
-    private void writeSection(DataOutputStream outputStream, SectionType sectionType, AbstractSection section) throws IOException {
-        writeString(outputStream, sectionType.name());
-        if (sectionType == SectionType.PERSONAL || sectionType == SectionType.OBJECTIVE) {
-            writeSimpleTextSection(outputStream, section);
-        } else if (sectionType == SectionType.ACHIEVEMENT || sectionType == SectionType.QUALIFICATIONS) {
-            writeListSection(outputStream, section);
-        } else if (sectionType == SectionType.EXPERIENCE || sectionType == SectionType.EDUCATION) {
-            writeOrganizationSection(outputStream, section);
-        }
-    }
-
-    private void writeSimpleTextSection(DataOutputStream outputStream, AbstractSection section) throws IOException {
-        writeString(outputStream, ((SimpleTextSection) section).getText());
-    }
-
-    private void writeListSection(DataOutputStream outputStream, AbstractSection section) throws IOException {
-        List<String> list = ((ListSection) section).getList();
-        writeInteger(outputStream, list.size());
-        for (String string : list) {
-            writeString(outputStream, string);
-        }
-    }
-
-    private void writeOrganizationSection(DataOutputStream outputStream, AbstractSection section) throws IOException {
-        List<Organization> list = ((OrganizationSection) section).getList();
-        writeInteger(outputStream, list.size());
-        for (Organization organization : list) {
-            writeHomePage(outputStream, organization);
-            writePositions(outputStream, organization);
-        }
-    }
-
-    private void writeHomePage(DataOutputStream outputStream, Organization organization) throws IOException {
-        Organization.Link homePage = organization.getHomePage();
-        writeString(outputStream, homePage.getName());
-        writeString(outputStream, homePage.getUrl());
-    }
-
-    private void writePositions(DataOutputStream outputStream, Organization organization) throws IOException {
-        List<Organization.Position> positions = organization.getPositions();
-        writeInteger(outputStream, positions.size());
-        for (Organization.Position position : positions) {
-            writePosition(outputStream, position);
-        }
-    }
-
-    private void writePosition(DataOutputStream outputStream, Organization.Position position) throws IOException {
-        writeString(outputStream, position.getStartDate().toString());
-        writeString(outputStream, position.getEndDate().toString());
-        writeString(outputStream, position.getTitle());
-        writeString(outputStream, position.getDescription());
-    }
-
-    @Override
-    public Resume doRead(InputStream stream) throws IOException {
-        try (DataInputStream inputStream = new DataInputStream(stream)) {
-            Resume resume = new Resume(inputStream.readUTF(), inputStream.readUTF());
-            readContacts(inputStream, resume);
-            readSections(inputStream, resume);
-            return resume;
-        }
-    }
-
-    @Override
-    public void doWrite(Resume resume, OutputStream stream) throws IOException {
-        try (DataOutputStream outputStream = new DataOutputStream(stream)) {
-            writeFields(outputStream, resume);
-            writeContacts(outputStream, resume);
-            writeSections(outputStream, resume);
-        }
     }
 }
