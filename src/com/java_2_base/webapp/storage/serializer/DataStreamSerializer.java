@@ -53,12 +53,19 @@ public class DataStreamSerializer implements StreamSerializer {
 
     private void writeSection(DataOutputStream outputStream, SectionType sectionType, AbstractSection section) throws IOException {
         outputStream.writeUTF(sectionType.name());
-        if (sectionType == SectionType.PERSONAL || sectionType == SectionType.OBJECTIVE) {
-            writeSimpleTextSection(outputStream, (SimpleTextSection) section);
-        } else if (sectionType == SectionType.ACHIEVEMENT || sectionType == SectionType.QUALIFICATIONS) {
-            writeListSection(outputStream, (ListSection) section);
-        } else if (sectionType == SectionType.EXPERIENCE || sectionType == SectionType.EDUCATION) {
-            writeOrganizationSection(outputStream, (OrganizationSection) section);
+        switch (sectionType) {
+            case PERSONAL:
+            case OBJECTIVE:
+                writeSimpleTextSection(outputStream, (SimpleTextSection) section);
+                break;
+            case ACHIEVEMENT:
+            case QUALIFICATIONS:
+                writeListSection(outputStream, (ListSection) section);
+                break;
+            case EXPERIENCE:
+            case EDUCATION:
+                writeOrganizationSection(outputStream, (OrganizationSection) section);
+                break;
         }
     }
 
@@ -88,10 +95,14 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private void writePosition(DataOutputStream outputStream, Organization.Position position) throws IOException {
-        outputStream.writeUTF(position.getStartDate().toString());
-        outputStream.writeUTF(position.getEndDate().toString());
+        writeDate(outputStream, position.getStartDate());
+        writeDate(outputStream, position.getEndDate());
         outputStream.writeUTF(position.getTitle());
         outputStream.writeUTF(position.getDescription());
+    }
+
+    private void writeDate(DataOutputStream outputStream, LocalDate date) throws IOException {
+        outputStream.writeUTF(date.toString());
     }
 
     private void readCollection(DataInputStream inputStream, DataReader reader) throws IOException {
@@ -124,12 +135,19 @@ public class DataStreamSerializer implements StreamSerializer {
 
     private void readSection(DataInputStream inputStream, Resume resume) throws IOException {
         SectionType sectionType = SectionType.valueOf(inputStream.readUTF());
-        if (sectionType == SectionType.PERSONAL || sectionType == SectionType.OBJECTIVE) {
-            readSimpleTextSection(inputStream, resume, sectionType);
-        } else if (sectionType == SectionType.ACHIEVEMENT || sectionType == SectionType.QUALIFICATIONS) {
-            readListSection(inputStream, resume, sectionType);
-        } else if (sectionType == SectionType.EXPERIENCE || sectionType == SectionType.EDUCATION) {
-            readOrganizationSection(inputStream, resume, sectionType);
+        switch (sectionType) {
+            case PERSONAL:
+            case OBJECTIVE:
+                readSimpleTextSection(inputStream, resume, sectionType);
+                break;
+            case ACHIEVEMENT:
+            case QUALIFICATIONS:
+                readListSection(inputStream, resume, sectionType);
+                break;
+            case EXPERIENCE:
+            case EDUCATION:
+                readOrganizationSection(inputStream, resume, sectionType);
+                break;
         }
     }
 
@@ -158,10 +176,14 @@ public class DataStreamSerializer implements StreamSerializer {
     }
 
     private Organization.Position getPosition(DataInputStream inputStream) throws IOException {
-        LocalDate startDate = LocalDate.parse(inputStream.readUTF());
-        LocalDate endDate = LocalDate.parse(inputStream.readUTF());
+        LocalDate startDate = readDate(inputStream);
+        LocalDate endDate = readDate(inputStream);
         String title = inputStream.readUTF();
         String description = inputStream.readUTF();
         return new Organization.Position(startDate, endDate, title, description);
+    }
+
+    private LocalDate readDate(DataInputStream inputStream) throws IOException {
+        return LocalDate.parse(inputStream.readUTF());
     }
 }

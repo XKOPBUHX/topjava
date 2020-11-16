@@ -89,7 +89,7 @@ public class ResumeTestData {
                 new Organization("Компания 2", "сайт 2",
                         new Organization.Position(2005, Month.JANUARY, 2007, Month.FEBRUARY,
                                 "Должность 2",
-                                "Описание 2"
+                                null
                         )
                 )
         );
@@ -97,8 +97,8 @@ public class ResumeTestData {
         resume.setSection(SectionType.EXPERIENCE, sectionExperience);
 
         List<Organization> education = Arrays.asList(
-                new Organization("Школа 1", "сайт 1",
-                        new Organization.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE, "Описание 1")
+                new Organization("Школа 1", null,
+                        new Organization.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE, "Описание 2-1")
                 ),
                 new Organization("Школа 2", "сайт 2",
                         new Organization.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Описание 2-1"),
